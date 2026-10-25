@@ -1,18 +1,932 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-    <h1>ZenGames</h1>
-  <p>ZenGames Is A Website Made by 10xZenoxx</p>
-  <h2>10xClicker🍪</h2>
-  <h2 id ="score">Cookies: 0</h2>
-  <button id ="click-btn">🍪CLICK🍪</button>
-  <h3 id ="upgrade-cost">Upgrade-Cost: 10🍪</h3>
-  <button id="upgrade-btn">Buy Upgrade⬆</button>
-  <h4 id ="auto-cost">Auto Clicker 100🍪</h4>
-  <button id= "auto-btn">Buy Auto Clicker</button>
-    <div id ="floating"></div>
-  </body>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f7faff">
+<title>ZenTools — Enter the Grind</title>
+<style>
+:root{--blue:#1677ff;--ink:#101828;--muted:#667085;--line:#e4eaf3;--bg:#f6f9ff;--card:#fff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,sans-serif}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+button:disabled{opacity:.45;cursor:not-allowed}
+header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}
+.nav{max-width:1120px;margin:auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-size:23px;font-weight:950;letter-spacing:-1px}.logo span{color:var(--blue)}
+.pill{background:#edf4ff;color:#1765cf;padding:8px 12px;border-radius:30px;font-size:12px;font-weight:800}
+nav{display:flex;gap:7px;flex-wrap:wrap;justify-content:center}
+nav a{color:#475467;text-decoration:none;font-size:13px;padding:8px;border-radius:9px}
+nav a:hover{background:#edf4ff;color:var(--blue)}
+main{max-width:1120px;margin:auto;padding:22px 18px 60px}
+section{scroll-margin-top:85px}
+.hero{padding:8px 0 18px}
+.eyebrow{color:var(--blue);font-size:11px;font-weight:900;letter-spacing:3px}
+h1{font-size:clamp(30px,5vw,52px);letter-spacing:-2px;line-height:1.05;margin:12px 0}
+h2{font-size:23px;letter-spacing:-.6px;margin:0 0 8px}
+h3{font-size:16px;margin:0 0 8px}
+p{line-height:1.6;color:var(--muted)}
+.sub{font-size:14px;margin:0 0 16px}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:15px}
+.card{grid-column:span 6;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:19px;min-width:0;box-shadow:0 5px 20px #10254a05}
+.wide{grid-column:span 12}.third{grid-column:span 4}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.muted{color:var(--muted);font-size:13px}
+label{display:block;font-size:12px;font-weight:800;color:#475467;margin:12px 0 6px}
+input,textarea,select{width:100%;padding:11px 12px;border:1px solid #d9e1ed;border-radius:10px;background:#fff;color:#101828;outline:none}
+input:focus,textarea:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 3px #1677ff18}
+textarea{min-height:100px;resize:vertical}
+.btn{border:0;border-radius:10px;padding:10px 14px;background:var(--blue);color:white;font-weight:800;font-size:13px;transition:transform .15s,filter .15s}
+.btn:hover{filter:brightness(.94);transform:translateY(-1px)}
+.btn.secondary{background:#edf4ff;color:#155fc4}
+.btn.dark{background:#172033;color:white}
+.btn.danger{background:#fff0ed;color:#c23420}
+.btn.small{padding:7px 10px}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.stat{background:#f5f8ff;border:1px solid #e7edf8;border-radius:13px;padding:13px;min-width:0}
+.stat strong{display:block;font-size:25px;letter-spacing:-1px}
+.stat span{font-size:11px;color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;margin:14px 0}
+.progress{height:9px;border-radius:99px;background:#e8edf5;overflow:hidden}
+.progress div{height:100%;width:0;background:var(--rank,#1677ff);border-radius:99px;transition:width .4s}
+.smalltext{font-size:11px;color:var(--muted)}
+.output{background:#f6f8fc;border:1px solid var(--line);padding:13px;border-radius:12px;white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px;min-height:44px}
+.question{padding:15px;border:1px solid var(--line);border-radius:13px;margin:12px 0}
+.answers{display:grid;gap:8px;margin-top:12px}
+.answer{border:1px solid #dce4ef;background:#fff;padding:11px;border-radius:10px;text-align:left;font-size:13px;color:#172033}
+.answer:hover:not(:disabled){border-color:var(--blue);background:#f5f9ff}
+.answer.correct{border-color:#16a34a;background:#ecfdf3;color:#166534}
+.answer.wrong{border-color:#ef4444;background:#fff1f2;color:#9f1239}
+.answer.eliminated{opacity:.22;text-decoration:line-through}
+.feedback{font-size:13px;font-weight:800;margin-top:9px;min-height:18px}
+.timer{font-size:clamp(40px,9vw,65px);font-weight:950;letter-spacing:-3px;text-align:center;padding:18px 0;font-variant-numeric:tabular-nums}
+.timer-mode{text-align:center;color:var(--blue);font-size:11px;font-weight:900;letter-spacing:3px}
+.shop-item{border:1px solid var(--line);padding:13px;border-radius:13px;display:flex;gap:10px;align-items:center}
+.shop-item .emoji{font-size:27px}
+.shop-item .details{flex:1;min-width:0}
+.shop-item h3{margin:0 0 4px}
+.badge{display:inline-block;border:1px solid var(--rank);color:var(--rank);background:color-mix(in srgb,var(--rank) 9%,white);padding:5px 10px;border-radius:999px;font-size:11px;font-weight:900}
+.rank-name{font-size:27px;font-weight:950;color:var(--rank);letter-spacing:-1px}
+footer{text-align:center;padding:30px 12px;color:var(--muted);font-size:12px}
+#toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#111827;color:white;padding:12px 18px;border-radius:12px;z-index:80;font-size:13px;box-shadow:0 10px 35px #0003;transition:.25s;max-width:90%;text-align:center}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+#zen-aura{--aura:#20a5ff;position:relative;isolation:isolate;overflow:hidden;margin:12px 0 24px;padding:31px 17px;min-height:170px;text-align:center;border-radius:18px;background:#080d18;border:1px solid #258dff77;box-shadow:0 0 28px #168bff20,inset 0 0 28px #168bff12}
+#zen-aura:before{content:"";position:absolute;z-index:-1;inset:-80%;background:conic-gradient(transparent,#168bff66,transparent,#a855f766,transparent);animation:spin 7s linear infinite}
+#zen-aura:after{content:"";position:absolute;z-index:-1;inset:2px;border-radius:16px;background:#080d18}
+#zen-aura-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:3}
+.aura-content{position:relative;z-index:2}
+#zen-aura-label{color:#72caff;font:900 10px monospace;letter-spacing:4px;margin-bottom:15px}
+#zen-aura-title{margin:0;font-size:clamp(22px,5vw,41px);line-height:1.2;font-weight:1000;overflow-wrap:anywhere;color:#d9f5ff;text-shadow:0 1px #87d9ff,0 3px #338bcc,0 5px #17528a,0 7px #061628,0 0 12px #25a8ff,0 0 28px #168bff;animation:electric 1.3s ease-in-out infinite alternate}
+#zen-aura-subtitle{font:12px monospace;letter-spacing:1px;color:#a5bad4;margin:14px 0 0}
+#zen-aura-tag{display:inline-block;margin-top:15px;padding:6px 11px;border:1px solid #248eff66;border-radius:99px;color:#75c9ff;background:#168bff12;font:11px monospace;letter-spacing:2px}
+#zen-aura.zen-fire{--aura:#ff672e;border-color:#ff672e99;box-shadow:0 0 30px #ff4d2225,inset 0 0 25px #ff4d2215}
+#zen-aura.zen-fire #zen-aura-title{color:#fff0ca;text-shadow:0 2px #ffdc8a,0 4px #ff8b26,0 6px #a9270b,0 8px #481206,0 0 14px #ff4a0a,0 0 32px #ff4a0a;animation:inferno .55s ease-in-out infinite alternate}
+#zen-aura.zen-fire #zen-aura-label,#zen-aura.zen-fire #zen-aura-tag{color:#ffb36d}
+#zen-aura.zen-legend{--aura:#ad7aff;border-color:#b78aff99;box-shadow:0 0 35px #8b5cf644,inset 0 0 30px #8b5cf622}
+#zen-aura.zen-legend #zen-aura-title{color:#f3eaff;text-shadow:0 2px #c7a7ff,0 4px #7041c9,0 7px #29134c,0 0 15px #b18aff,0 0 33px #8b5cf6;animation:electric .7s ease-in-out infinite alternate}
+#zen-aura.zen-legend #zen-aura-label,#zen-aura.zen-legend #zen-aura-tag{color:#d3b7ff}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes electric{from{filter:brightness(.85);transform:perspective(400px) rotateX(2deg)}to{filter:brightness(1.4);transform:perspective(400px) rotateX(-2deg)}}
+@keyframes inferno{from{filter:brightness(1);transform:translateY(0) scale(1)}to{filter:brightness(1.35);transform:translateY(-2px) scale(1.015)}}
+@keyframes missile{0%{transform:translate(-110px,65px) rotate(25deg);opacity:0}15%{opacity:1}75%{transform:translate(0,0) rotate(0);opacity:1}100%{transform:translate(0,0) scale(1.8);opacity:0}}
+#explosion{position:fixed;z-index:90;pointer-events:none;font-size:60px;animation:boom .8s ease-out forwards}
+@keyframes boom{0%{transform:scale(.1) rotate(-25deg);opacity:0}25%{transform:scale(1.4);opacity:1}65%{transform:scale(1.9) rotate(15deg);opacity:1}100%{transform:scale(2.5);opacity:0}}
+#levelup{position:fixed;inset:0;background:#07101dcc;z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
+#levelup.show{display:flex}
+.levelbox{max-width:400px;width:100%;text-align:center;padding:35px 20px;border-radius:24px;background:#fff;animation:levelpop .45s cubic-bezier(.2,1.5,.5,1)}
+@keyframes levelpop{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)}50%{transform:translateX(5px)}75%{transform:translateX(-3px}}
+@media(max-width:700px){.card,.third{grid-column:span 12}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.nav{flex-wrap:wrap}.nav nav{order:3;width:100%}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <div class="logo">Zen<span>Tools</span> ⚡</div>
+    <div class="pill">🪙 <span id="navPoints">0</span> Points</div>
+    <nav>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#quiz">Quiz Arena</a>
+      <a href="#study">Study tools</a>
+      <a href="#ai">Zen AI</a>
+      <a href="#store">Zen Store</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="eyebrow">YOUR STUDY. YOUR GAME.</div>
+  <h1>Study smarter.<br><span style="color:var(--blue)">Grind harder.</span></h1>
+  <p class="sub">Build knowledge, earn XP, defeat quizzes and rise through the ranks.</p>
+</section>
+
+<section id="aura-section">
+  <div id="zen-aura">
+    <canvas id="zen-aura-canvas"></canvas>
+    <div class="aura-content">
+      <div id="zen-aura-label">⚡ ZENTOOLS SYSTEM ⚡</div>
+      <h2 id="zen-aura-title">AN OG HAS ENTERED THE GRIND</h2>
+      <p id="zen-aura-subtitle">AURA DETECTED · LOCK-IN PROTOCOL ACTIVE</p>
+      <div id="zen-aura-tag">✦ COMMON SPAWN ✦</div>
+    </div>
+  </div>
+</section>
+
+<section id="dashboard">
+  <div class="grid">
+    <div class="card wide">
+      <div class="row">
+        <div>
+          <div class="eyebrow">YOUR CURRENT RANK</div>
+          <div id="rankName" class="rank-name">Rookie</div>
+          <div id="rankCaption" class="muted">Every legend starts somewhere.</div>
+        </div>
+        <span id="rankBadge" class="badge">LEVEL 1</span>
+      </div>
+      <div style="margin:18px 0 8px" class="row">
+        <strong>Level progress</strong><span id="xpProgressText" class="smalltext">0 / 100 XP</span>
+      </div>
+      <div class="progress"><div id="xpBar"></div></div>
+      <div class="stats">
+        <div class="stat"><strong id="statXP">0</strong><span>Total lifetime XP</span></div>
+        <div class="stat"><strong id="statBank">0</strong><span>Unconverted XP</span></div>
+        <div class="stat"><strong id="statPoints">0</strong><span>Zen Points</span></div>
+        <div class="stat"><strong id="statCorrect">0</strong><span>Correct answers</span></div>
+        <div class="stat"><strong id="statFocus">0</strong><span>Focus sessions</span></div>
+      </div>
+      <div class="row">
+        <span class="muted">100 XP converts into 1 Zen Point.</span>
+        <button class="btn secondary" onclick="convertXP()">Convert XP → Points</button>
+      </div>
+      <p class="smalltext">XP is lifetime progress. Spending Points never reduces your rank.</p>
+    </div>
+
+    <div class="card">
+      <h2>🏅 Achievements</h2>
+      <p class="sub">Earn these by actually playing and studying.</p>
+      <div id="achievements" class="output">Your achievements will appear here.</div>
+    </div>
+
+    <div class="card">
+      <h2>📊 Your stats</h2>
+      <p class="sub">Your personal progress in this browser.</p>
+      <div id="statsDetails" class="output"></div>
+      <div class="btnrow"><button class="btn secondary" onclick="shareStats()">Share scorecard</button></div>
+    </div>
+  </div>
+</section>
+
+<section id="quiz" style="margin-top:32px">
+  <div class="eyebrow">THE ARENA</div>
+  <h2>💥 Quiz Arena</h2>
+  <p class="sub">Get answers right to earn XP. Miss one and the missile is inbound.</p>
+  <div class="grid">
+    <div class="card">
+      <h3>Choose a quiz</h3>
+      <label for="quizTopic">Topic</label>
+      <select id="quizTopic">
+        <option value="science">Science basics</option>
+        <option value="space">Space</option>
+        <option value="computing">Computing</option>
+        <option value="maths">Maths basics</option>
+      </select>
+      <label for="quizCount">Questions</label>
+      <select id="quizCount"><option>5</option><option>10</option></select>
+      <div class="btnrow"><button class="btn" onclick="startQuiz()">Enter the arena →</button></div>
+      <p class="smalltext">Each correct answer: +10 XP. Finish a quiz: +20 XP. One reward per question.</p>
+    </div>
+    <div class="card">
+      <div class="row"><h3>🏆 Current run</h3><span class="badge" id="quizState">READY</span></div>
+      <div class="stats">
+        <div class="stat"><strong id="runCorrect">0</strong><span>Correct</span></div>
+        <div class="stat"><strong id="runStreak">0</strong><span>Streak</span></div>
+      </div>
+      <div id="quizArea"><p>Start a quiz to begin your run.</p></div>
+      <div id="scorecard" style="display:none" class="output"></div>
+      <div class="btnrow" id="quizEndButtons" style="display:none">
+        <button class="btn" onclick="startQuiz()">Play again</button>
+        <button class="btn secondary" onclick="shareStats()">Share stats</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="study" style="margin-top:32px">
+  <div class="eyebrow">TOOLS FOR THE GRIND</div>
+  <h2>🧠 Study tools</h2>
+  <div class="grid" style="margin-top:15px">
+    <div class="card">
+      <h3>⚡ AI Prompt Builder</h3>
+      <p class="sub">Create a strong prompt to use with an AI assistant.</p>
+      <label for="promptTopic">What are you working on?</label>
+      <input id="promptTopic" placeholder="e.g. Class 8 Light chapter">
+      <label for="promptTask">Task</label>
+      <select id="promptTask"><option>Explain a topic</option><option>Make exam questions</option><option>Summarize notes</option><option>Quiz me</option><option>Make a revision plan</option></select>
+      <label for="promptStyle">Style</label>
+      <select id="promptStyle"><option>Simple and clear</option><option>Exam-ready answers</option><option>Detailed explanation</option><option>One question at a time</option></select>
+      <div class="btnrow"><button class="btn" onclick="buildPrompt()">Build prompt</button></div>
+      <div id="promptOutput" class="output" style="margin-top:12px">Your prompt will appear here.</div>
+      <div class="btnrow"><button class="btn secondary" onclick="copyText('promptOutput')">Copy prompt</button></div>
+      <p class="smalltext">This tool builds prompts; it does not itself call an AI API.</p>
+    </div>
+
+    <div class="card">
+      <h3>📝 Notes-to-Quiz</h3>
+      <p class="sub">Paste notes. ZenTools will turn your sentences into a recognition quiz.</p>
+      <label for="notesInput">Your notes</label>
+      <textarea id="notesInput" placeholder="Paste a few sentences from your notes..."></textarea>
+      <div class="btnrow"><button class="btn" onclick="makeNotesQuiz()">Generate practice quiz</button></div>
+      <div id="notesQuizArea"></div>
+    </div>
+
+    <div class="card">
+      <h3>🗂️ Flashcard Maker</h3>
+      <p class="sub">Enter one card per line in the format question | answer.</p>
+      <label for="flashInput">Your cards</label>
+      <textarea id="flashInput" placeholder="What is reflection? | Bouncing back of light&#10;What is a normal? | A perpendicular line"></textarea>
+      <div class="btnrow"><button class="btn" onclick="loadFlashcards()">Create cards</button></div>
+      <div id="flashArea" style="margin-top:12px"></div>
+    </div>
+
+    <div class="card">
+      <h3>⏱️ Focus Timer</h3>
+      <p class="sub">Set your focus and break durations.</p>
+      <div class="row">
+        <div style="flex:1"><label for="focusMins">Focus minutes</label><input id="focusMins" type="number" min="1" max="180" value="25"></div>
+        <div style="flex:1"><label for="breakMins">Break minutes</label><input id="breakMins" type="number" min="1" max="60" value="5"></div>
+      </div>
+      <div class="timer-mode" id="timerMode">FOCUS SESSION</div>
+      <div class="timer" id="timerDisplay">25:00</div>
+      <div class="progress"><div id="timerBar"></div></div>
+      <div class="btnrow" style="justify-content:center">
+        <button class="btn" id="timerStart" onclick="toggleTimer()">Start</button>
+        <button class="btn secondary" onclick="resetTimer()">Reset</button>
+        <button class="btn secondary" onclick="switchTimerMode()">Switch mode</button>
+      </div>
+      <p id="timerHint" class="smalltext">Complete a full focus session for +25 XP.</p>
+    </div>
+  </div>
+</section>
+
+
+<section id="ai" style="margin-top:32px">
+  <div class="eyebrow">YOUR OWN AI STUDY ASSISTANT</div>
+  <h2>🤖 ZenTools AI</h2>
+  <p class="sub">Ask questions, understand lessons, summarize notes, or generate practice questions without leaving ZenTools.</p>
+  <div class="grid">
+    <div class="card wide">
+      <div class="row"><h3>💬 Chat with Zen AI</h3><span class="badge" id="aiStatus">NOT CONNECTED</span></div>
+      <p class="smalltext">Connect the free Cloudflare Worker backend to activate AI. Your API key stays on the server, not in this public website.</p>
+      <div id="aiChat" class="output" style="min-height:220px;max-height:440px;overflow-y:auto;display:flex;flex-direction:column;gap:12px" aria-live="polite"><div><strong>Zen AI</strong><br>Yo! I'm ready to help you study. Once the AI backend is connected, ask me anything. ⚡</div></div>
+      <label for="aiMode">Mode</label>
+      <select id="aiMode"><option value="tutor">Study tutor</option><option value="quiz">Quiz me</option><option value="summary">Summarize notes</option><option value="exam">Exam-ready answer</option><option value="general">General assistant</option></select>
+      <label for="aiInput">Your message</label>
+      <textarea id="aiInput" rows="3" placeholder="e.g. Explain the laws of reflection in simple Class 8 language..."></textarea>
+      <div class="btnrow"><button class="btn" id="aiSend" onclick="sendAIMessage()">Send to Zen AI ↗</button><button class="btn secondary" onclick="clearAIChat()">Clear chat</button></div>
+      <p class="smalltext">AI answers can be wrong, so verify important facts. Never share passwords or private information.</p>
+    </div>
+  </div>
+</section>
+
+<section id="store" style="margin-top:32px">
+  <div class="eyebrow">SPEND YOUR EARNED CURRENCY</div>
+  <h2>🪙 Zen Store</h2>
+  <p class="sub">Buy gameplay power-ups and visual effects with Zen Points. No real money.</p>
+  <div class="card wide" style="margin-bottom:15px">
+    <div class="row"><strong>Your balance</strong><strong style="color:#b77900">🪙 <span id="storePoints">0</span> Points</strong></div>
+    <p class="smalltext">Power-ups are stored in your inventory. Use them in your next quiz run.</p>
+    <div id="inventory" class="output">No items yet. Earn Points and visit the store!</div>
+  </div>
+  <div id="storeItems" class="grid"></div>
+</section>
+
+<section style="margin-top:30px">
+  <div class="card wide">
+    <div class="row"><div><h2>🛠️ Settings & progress</h2><p class="sub">Your data stays in this browser.</p></div><button class="btn danger" onclick="resetProgress()">Reset all progress</button></div>
+    <label><input id="soundToggle" type="checkbox" checked style="width:auto;margin-right:8px"> Enable simple sound effects</label>
+    <p class="smalltext">Resetting removes saved XP, Points, purchases, and stats. This cannot be undone.</p>
+  </div>
+</section>
+</main>
+
+<footer>ZenTools · Study hard. Earn XP. Become a Zen Legend. ⚡<br>Made for the grind. Free to host.</footer>
+<div id="toast" role="status"></div>
+<div id="levelup">
+  <div class="levelbox">
+    <div style="font-size:45px">🏆</div>
+    <div class="eyebrow">RANK UP!</div>
+    <h2 id="levelupTitle" style="margin-top:10px">New rank unlocked</h2>
+    <p id="levelupText"></p>
+    <button class="btn" onclick="closeLevelup()">LET'S GO ⚡</button>
+  </div>
+</div>
+
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+const SAVE_KEY = "zentools_v2_save";
+
+const defaultData = () => ({
+  xp:0, unconvertedXP:0, points:0, correct:0, answered:0, quizzes:0,
+  focusSessions:0, focusMinutes:0, currentStreak:0,
+  bestStreak:0, purchases:{}, inventory:{}, achievements:[],
+  quizXP:[], lastDate:"", dailyXP:0
+});
+
+let data = defaultData();
+try {
+  const saved = JSON.parse(localStorage.getItem(SAVE_KEY) || "null");
+  if(saved && typeof saved === "object") data = {...defaultData(),...saved};
+} catch(e) {}
+// Safely initialize the XP conversion bank for older saves.
+if(typeof data.unconvertedXP !== "number" || !Number.isFinite(data.unconvertedXP)){
+  data.unconvertedXP = Math.max(0, Number(data.xp || 0) - Number(data.convertedXP || 0));
+}
+data.unconvertedXP = Math.max(0, data.unconvertedXP);
+
+const ranks = [
+  {name:"Rookie",min:0,color:"#ec4899",caption:"Every legend starts somewhere."},
+  {name:"Learner",min:100,color:"#38bdf8",caption:"Building your foundations."},
+  {name:"Grinder",min:300,color:"#22c55e",caption:"Putting in the work."},
+  {name:"Scholar",min:700,color:"#a78bfa",caption:"Knowledge is your power."},
+  {name:"Elite",min:1400,color:"#7c3aed",caption:"Serious dedication."},
+  {name:"Master",min:2500,color:"#1e3a8a",caption:"A force to be reckoned with."},
+  {name:"Zen Legend",min:4000,color:"#18181b",caption:"THE LEGEND HAS ARRIVED."}
+];
+
+const items = [
+  {id:"fifty",emoji:"🎯",name:"50/50 Power-up",desc:"Remove two wrong answers in a quiz.",cost:5,type:"power",effect:"fifty"},
+  {id:"second",emoji:"🔁",name:"Second Chance",desc:"Retry one wrong answer on your next quiz.",cost:8,type:"power",effect:"second"},
+  {id:"boost",emoji:"⚡",name:"XP Multiplier",desc:"Earn double quiz-answer XP in one quiz.",cost:15,type:"power",effect:"boost"},
+  {id:"shield",emoji:"🛡️",name:"Streak Shield",desc:"Protect your current quiz streak from one mistake.",cost:12,type:"power",effect:"shield"},
+  {id:"blue",emoji:"🌊",name:"Electric Storm",desc:"Unlock a special electric entrance effect.",cost:20,type:"cosmetic",effect:"blue"},
+  {id:"fire",emoji:"🔥",name:"Inferno Effect",desc:"Unlock fire-themed entrance effects.",cost:25,type:"cosmetic",effect:"fire"},
+  {id:"purple",emoji:"🔮",name:"Legendary Aura",desc:"Unlock purple legendary styling.",cost:35,type:"cosmetic",effect:"purple"},
+  {id:"crate",emoji:"🎁",name:"Mystery Crate",desc:"Earn a random small XP bonus or cosmetic.",cost:25,type:"crate",effect:"crate"},
+  {id:"boss",emoji:"👾",name:"Boss Challenge",desc:"Unlock an extra hard quiz challenge.",cost:30,type:"power",effect:"boss"}
+];
+
+function save(){try{localStorage.setItem(SAVE_KEY,JSON.stringify(data));}catch(e){toast("Couldn't save progress in this browser.");}}
+let toastTimer;
+function toast(message){
+  $("toast").textContent=message;$("toast").classList.add("show");
+  clearTimeout(toastTimer);toastTimer=setTimeout(()=>$("toast").classList.remove("show"),2600);
+}
+function currentRank(xp=data.xp){
+  let rank=0;
+  for(let i=0;i<ranks.length;i++) if(xp>=ranks[i].min) rank=i;
+  return rank;
+}
+function nextRankXP(){
+  const r=currentRank();
+  return ranks[r+1]?.min ?? ranks[r].min+1000;
+}
+function render(){
+  const ri=currentRank(),r=ranks[ri],next=nextRankXP();
+  document.documentElement.style.setProperty("--rank",r.color);
+  $("rankName").textContent=r.name;$("rankCaption").textContent=r.caption;
+  $("rankBadge").textContent="LEVEL "+(ri+1);
+  $("rankBadge").style.setProperty("--rank",r.color);
+  $("xpProgressText").textContent=ri===ranks.length-1
+    ? data.xp+" lifetime XP · MAX RANK"
+    : (data.xp-r.min)+" / "+(next-r.min)+" XP";
+  $("xpBar").style.width=ri===ranks.length-1?"100%":
+    Math.min(100,((data.xp-r.min)/(next-r.min))*100)+"%";
+  $("statXP").textContent=data.xp;
+  $("statBank").textContent=Math.max(0,Number(data.unconvertedXP)||0);
+  $("statPoints").textContent=data.points;
+  $("navPoints").textContent=data.points;
+  $("storePoints").textContent=data.points;
+  $("statCorrect").textContent=data.correct;
+  $("statFocus").textContent=data.focusSessions;
+  const earned=[];
+  if(data.correct>=1)earned.push("🎯 First correct answer");
+  if(data.correct>=10)earned.push("🧠 10 correct answers");
+  if(data.correct>=50)earned.push("💡 Knowledge machine");
+  if(data.quizzes>=1)earned.push("🏁 First quiz complete");
+  if(data.quizzes>=5)earned.push("🏆 Quiz veteran");
+  if(data.focusSessions>=1)earned.push("⏱️ First focus session");
+  if(data.focusSessions>=5)earned.push("🔥 Focus fanatic");
+  if(data.xp>=100)earned.push("⚡ First 100 XP");
+  if(ri>=3)earned.push("📚 Scholar rank reached");
+  if(ri>=6)earned.push("👑 Zen Legend");
+  $("achievements").textContent=earned.length?earned.join("\n\n"):"Your first achievement awaits. Answer a quiz question!";
+  $("statsDetails").textContent=
+    "Questions answered: "+data.answered+
+    "\nQuiz accuracy: "+(data.answered?Math.round(data.correct/data.answered*100):0)+"%"+
+    "\nQuizzes completed: "+data.quizzes+
+    "\nFocus minutes: "+data.focusMinutes+
+    "\nBest quiz streak: "+data.bestStreak;
+  renderInventory();renderStore();
+}
+function addXP(amount,reason){
+  if(amount<=0)return;
+  const oldRank=currentRank();
+  data.xp+=amount;
+  const today=new Date().toLocaleDateString();
+  if(data.lastDate!==today){data.lastDate=today;data.dailyXP=0;}
+  data.dailyXP+=amount;
+  save();render();
+  toast("+"+amount+" XP · "+reason);
+  const newRank=currentRank();
+  if(newRank>oldRank){
+    $("levelupTitle").textContent=ranks[newRank].name+" unlocked!";
+    $("levelupTitle").style.color=ranks[newRank].color;
+    $("levelupText").textContent="You've reached "+ranks[newRank].name+". Keep learning and keep climbing.";
+    $("levelup").classList.add("show");
+    playTone(660,.2);
+  }
+}
+function closeLevelup(){$("levelup").classList.remove("show");}
+function convertXP(){
+  const availableXP=Math.max(0,Number(data.unconvertedXP)||0);
+  const pointsToEarn=Math.floor(availableXP/100);
+  if(pointsToEarn<1){toast("You need 100 unconverted XP for 1 Zen Point.");return;}
+  data.unconvertedXP=availableXP-pointsToEarn*100;
+  data.points+=pointsToEarn;
+  data.convertedXP=(Number(data.convertedXP)||0)+pointsToEarn*100;
+  save();render();
+  toast("Converted "+pointsToEarn*100+" XP into "+pointsToEarn+" Zen Point(s)! "+data.unconvertedXP+" XP carried over.");
+}
+function awardXP(amount,reason){
+  data.unconvertedXP=(Math.max(0,Number(data.unconvertedXP)||0))+amount;
+  addXP(amount,reason);
+}
+function renderInventory(){
+  const lines=[];
+  for(const item of items){
+    const count=(data.inventory||{})[item.id]||0;
+    if(count>0)lines.push(item.emoji+" "+item.name+" × "+count);
+  }
+  $("inventory").textContent=lines.length?lines.join("\n"):"No items yet. Earn Points and visit the store!";
+}
+function renderStore(){
+  $("storeItems").innerHTML="";
+  for(const item of items){
+    const owned=(data.purchases||{})[item.id]||0;
+    const el=document.createElement("div");el.className="card third";
+    const row=document.createElement("div");row.className="shop-item";
+    const emoji=document.createElement("div");emoji.className="emoji";emoji.textContent=item.emoji;
+    const details=document.createElement("div");details.className="details";
+    const name=document.createElement("h3");name.textContent=item.name;
+    const desc=document.createElement("div");desc.className="smalltext";desc.textContent=item.desc;
+    const cost=document.createElement("p");cost.style.cssText="margin:7px 0 0;font-weight:900;color:#a16b00";cost.textContent="🪙 "+item.cost+" Points";
+    details.append(name,desc,cost);
+    const btn=document.createElement("button");btn.className="btn small";btn.textContent=item.type==="cosmetic"&&owned?"Owned":"Buy";
+    btn.disabled=(item.type==="cosmetic"&&owned>0)||data.points<item.cost;
+    btn.onclick=()=>buyItem(item.id);
+    row.append(emoji,details);el.append(row,btn);$("storeItems").append(el);
+  }
+}
+function buyItem(id){
+  const item=items.find(i=>i.id===id);if(!item)return;
+  if(data.points<item.cost){toast("Not enough Zen Points!");return;}
+  if(item.type==="cosmetic"&&(data.purchases[id]||0)>0){toast("Already unlocked!");return;}
+  data.points-=item.cost;
+  data.purchases[id]=(data.purchases[id]||0)+1;
+  if(item.type!=="cosmetic"&&item.type!=="crate")data.inventory[id]=(data.inventory[id]||0)+1;
+  if(item.type==="crate"){
+    const roll=Math.random();
+    if(roll<.6){data.xp+=10;data.unconvertedXP=(data.unconvertedXP||0)+10;toast("Crate reward: +10 XP!");}
+    else if(roll<.9){data.points+=5;toast("Crate reward: 5 Points returned!");}
+    else{data.inventory.fifty=(data.inventory.fifty||0)+1;toast("Crate reward: 50/50 power-up!");}
+  }else toast("Unlocked: "+item.name+"!");
+  save();render();
+}
+function shareStats(){
+  const text="⚡ ZenTools scorecard\nRank: "+ranks[currentRank()].name+
+  "\nLifetime XP: "+data.xp+"\nZen Points: "+data.points+
+  "\nCorrect answers: "+data.correct+"\nQuiz accuracy: "+
+  (data.answered?Math.round(data.correct/data.answered*100):0)+"%"+
+  "\nFocus sessions: "+data.focusSessions+"\nKeep grinding!";
+  if(navigator.share){navigator.share({title:"My ZenTools Stats",text}).catch(()=>{});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(text).then(()=>toast("Scorecard copied!")).catch(()=>toast(text));}
+  else toast(text);
+}
+function resetProgress(){
+  if(!confirm("Reset all ZenTools progress? This cannot be undone."))return;
+  data=defaultData();save();render();toast("Progress reset.");
+}
+
+/* Audio feedback */
+function playTone(freq=440,duration=.12){
+  if(!$("soundToggle").checked)return;
+  try{
+    const AC=window.AudioContext||window.webkitAudioContext;
+    const ac=new AC(),osc=ac.createOscillator(),gain=ac.createGain();
+    osc.type="sine";osc.frequency.value=freq;
+    gain.gain.setValueAtTime(.07,ac.currentTime);
+    gain.gain.exponentialRampToValueAtTime(.001,ac.currentTime+duration);
+    osc.connect(gain);gain.connect(ac.destination);osc.start();osc.stop(ac.currentTime+duration);
+    osc.onended=()=>ac.close();
+  }catch(e){}
+}
+
+/* Prompt builder */
+function buildPrompt(){
+  const topic=$("promptTopic").value.trim();
+  if(!topic){toast("Enter a topic first.");return;}
+  const task=$("promptTask").value,style=$("promptStyle").value;
+  $("promptOutput").textContent="Help me with: "+topic+
+    "\nTask: "+task+
+    "\nStyle: "+style+
+    "\nExplain at an appropriate school level. Use clear headings and examples. Highlight important points and finish with exam-style practice questions. Do not invent facts; correct my mistakes kindly and explain why.";
+}
+async function copyText(id){
+  const text=$(id).textContent;
+  try{await navigator.clipboard.writeText(text);toast("Copied to clipboard!");}
+  catch(e){toast("Select the text and copy it manually.");}
+}
+
+/* ZenTools AI chat. Set this URL to your deployed Cloudflare Worker endpoint. */
+const AI_API_URL = "https://zentools-ai.kaloosaleem506.workers.dev";
+let aiHistory=[];
+function appendAIMessage(role,text){
+  const chat=$("aiChat"),wrap=document.createElement("div"),label=document.createElement("strong"),body=document.createElement("div");
+  label.textContent=role==="user"?"You":"Zen AI";body.textContent=text;body.style.whiteSpace="pre-wrap";body.style.overflowWrap="anywhere";
+  wrap.append(label,document.createElement("br"),body);wrap.style.padding="10px 12px";wrap.style.borderRadius="10px";wrap.style.background=role==="user"?"#edf4ff":"#fff";wrap.style.border="1px solid #e4eaf3";chat.append(wrap);chat.scrollTop=chat.scrollHeight;
+}
+function clearAIChat(){
+  aiHistory=[];$("aiChat").innerHTML="";appendAIMessage("assistant","Chat cleared. What would you like to learn?");
+}
+async function sendAIMessage(){
+  const input=$("aiInput"),message=input.value.trim(),btn=$("aiSend"),mode=$("aiMode").value;
+  if(!message){toast("Type a message first.");return;}
+  if(AI_API_URL==="PASTE_YOUR_CLOUDFLARE_WORKER_URL_HERE"||!/^https:\/\//.test(AI_API_URL)){
+    toast("AI isn't connected yet. Follow the setup steps to connect the free backend.");
+    appendAIMessage("assistant","I'm not connected to the AI server yet. Deploy the supplied Cloudflare Worker, then replace AI_API_URL in index.html with your Worker URL. No API key belongs in this file.");return;
+  }
+  if(btn.disabled)return;
+  appendAIMessage("user",message);input.value="";btn.disabled=true;btn.textContent="Thinking…";$("aiStatus").textContent="THINKING";
+  const modeInstructions={
+    tutor:"Act as a patient school study tutor. Explain clearly, use examples, and adapt to the student's level.",
+    quiz:"Quiz the student on the requested topic. Ask one question at a time and wait for their answer; don't reveal the answer immediately.",
+    summary:"Summarize the user's provided notes accurately. Use headings and concise bullet points. Don't invent missing facts.",
+    exam:"Give an exam-ready answer with clear wording and an appropriate level of detail. Include key terms.",
+    general:"Be a helpful, clear, accurate general assistant."
+  };
+  try{
+    const response=await fetch(AI_API_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message,mode,instructions:modeInstructions[mode],history:aiHistory.slice(-10)})});
+    const result=await response.json().catch(()=>({}));
+    if(!response.ok)throw new Error(result.error||("Server error ("+response.status+")"));
+    const answer=String(result.reply||result.text||"").trim();if(!answer)throw new Error("The AI returned an empty answer. Try again.");
+    aiHistory.push({role:"user",content:message},{role:"assistant",content:answer});aiHistory=aiHistory.slice(-12);appendAIMessage("assistant",answer);$("aiStatus").textContent="CONNECTED";
+  }catch(error){appendAIMessage("assistant","Couldn't reach Zen AI: "+error.message+". Check the Worker URL and its AI API key, then try again.");$("aiStatus").textContent="CONNECTION ERROR";}
+  finally{btn.disabled=false;btn.textContent="Send to Zen AI ↗";}
+}
+$("aiInput").addEventListener("keydown",event=>{if(event.key==="Enter"&&!event.shiftKey){event.preventDefault();sendAIMessage();}});
+
+/* Quiz bank */
+const banks={
+science:[
+["What is the SI unit of force?",["Newton","Joule","Watt","Pascal"],0],
+["Which organ pumps blood?",["Lungs","Heart","Kidney","Brain"],1],
+["Which gas do plants absorb for photosynthesis?",["Oxygen","Nitrogen","Carbon dioxide","Hydrogen"],2],
+["What is the boiling point of water at sea level?",["50°C","100°C","150°C","0°C"],1],
+["Which part of a plant absorbs most water?",["Flower","Leaf","Root hairs","Stem"],2],
+["Which type of mirror is commonly used as a rear-view mirror?",["Plane","Convex","Concave","None"],1],
+["What is the basic unit of life?",["Atom","Cell","Organ","Tissue"],1],
+["Which force opposes motion between surfaces?",["Gravity","Magnetism","Friction","Buoyancy"],2],
+["What is the image in a plane mirror?",["Always inverted","Erect and virtual","Always smaller","Real"],1],
+["Which material is a good conductor of electricity?",["Rubber","Glass","Copper","Wood"],2]
+],
+space:[
+["Which planet is known as the Red Planet?",["Venus","Mars","Jupiter","Mercury"],1],
+["What is at the centre of our solar system?",["Earth","The Moon","The Sun","Mars"],2],
+["Which is Earth's natural satellite?",["Mars","Moon","Venus","Sun"],1],
+["Which planet is largest in our solar system?",["Earth","Saturn","Jupiter","Neptune"],2],
+["What force keeps planets in orbit?",["Friction","Gravity","Sound","Electricity"],1],
+["Does the Moon produce its own visible light?",["Yes","No, it reflects sunlight","Only at night","Sometimes"],1]
+],
+computing:[
+["What does CPU stand for?",["Central Processing Unit","Computer Power Utility","Core Program Unit","Central Print Unit"],0],
+["Which is an input device?",["Monitor","Speaker","Keyboard","Printer"],2],
+["Which is a web programming language?",["HTML","JPEG","MP3","PDF"],0],
+["What does a loop do in programming?",["Repeats instructions","Deletes files","Turns off a screen","Prints paper"],0],
+["What does HTML mainly structure?",["Web pages","Batteries","Networks only","Images only"],0],
+["Which is a safe password practice?",["Reuse one password everywhere","Share passwords","Use unique strong passwords","Use your name only"],2]
+],
+maths:[
+["What is 7 × 8?",["54","56","64","48"],1],
+["What is the square of 9?",["18","72","81","99"],2],
+["Simplify 3x + 2x.",["5x","6x","5x²","x"],0],
+["What is 15% of 200?",["15","20","30","40"],2],
+["What is 12²?",["124","144","122","24"],1],
+["Factorise x² − 9.",["(x−9)(x+1)","(x−3)(x+3)","(x−3)²","x(x−9)"],1]
+]
+};
+let quiz={questions:[],index:0,correct:0,answered:0,streak:0,best:0,earned:0,finished:false,used:{},runId:0,bonus:false,secondUsed:false,shieldUsed:false,boost:false};
+function startQuiz(){
+  const topic=$("quizTopic").value;
+  let bank=[...banks[topic]];
+  if((data.inventory.boss||0)>0){
+    bank.push(["Solve: 2(x + 3) = 18.",["x=3","x=6","x=9","x=12"],1]);
+  }
+  bank.sort(()=>Math.random()-.5);
+  const count=Number($("quizCount").value);
+  quiz={questions:bank.slice(0,count),index:0,correct:0,answered:0,streak:0,best:0,earned:0,finished:false,used:{},runId:Date.now(),bonus:false,secondUsed:false,shieldUsed:false,boost:false};
+  if(data.inventory.boost>0){data.inventory.boost--;quiz.boost=true;}
+  if(data.inventory.boss>0&&bank.length>Number($("quizCount").value)-1)data.inventory.boss--;
+  save();renderInventory();
+  $("quizState").textContent="IN PROGRESS";$("scorecard").style.display="none";$("quizEndButtons").style.display="none";
+  renderQuestion();
+}
+function renderQuestion(){
+  const q=quiz.questions[quiz.index];
+  if(!q){finishQuiz();return;}
+  $("runCorrect").textContent=quiz.correct;$("runStreak").textContent=quiz.streak;
+  const area=$("quizArea");area.innerHTML="";
+  const top=document.createElement("div");top.className="row";
+  const label=document.createElement("strong");label.textContent="Question "+(quiz.index+1)+" / "+quiz.questions.length;
+  const xp=document.createElement("span");xp.className="badge";xp.textContent="+"+(quiz.boost?20:10)+" XP";
+  top.append(label,xp);area.append(top);
+  const question=document.createElement("div");question.className="question";
+  const text=document.createElement("h3");text.textContent=q[0];question.append(text);
+  const answers=document.createElement("div");answers.className="answers";
+  q[1].forEach((answer,i)=>{
+    const btn=document.createElement("button");btn.className="answer";btn.textContent=String.fromCharCode(65+i)+". "+answer;
+    btn.onclick=()=>answerQuestion(i,btn,answers,q);
+    answers.append(btn);
+  });
+  question.append(answers);
+  const feedback=document.createElement("div");feedback.className="feedback";feedback.id="quizFeedback";
+  question.append(feedback);
+  const tools=document.createElement("div");tools.className="btnrow";
+  if((data.inventory.fifty||0)>0){
+    const b=document.createElement("button");b.className="btn secondary small";b.textContent="🎯 Use 50/50";
+    b.onclick=()=>useFifty(q,answers,b);tools.append(b);
+  }
+  area.append(question,tools);
+}
+function useFifty(q,answers,button){
+  if(!data.inventory.fifty)return;
+  data.inventory.fifty--;save();renderInventory();
+  const wrong=[...answers.children].map((b,i)=>({b,i})).filter(x=>x.i!==q[2]).sort(()=>Math.random()-.5);
+  wrong.slice(0,2).forEach(x=>{x.b.disabled=true;x.b.classList.add("eliminated");});
+  button.disabled=true;toast("Two wrong answers eliminated!");
+}
+function answerQuestion(choice,btn,answers,q){
+  if(quiz.finished||quiz.used[quiz.index])return;
+  quiz.used[quiz.index]=true;quiz.answered++;data.answered++;
+  const buttons=[...answers.children];buttons.forEach(b=>b.disabled=true);
+  const feedback=$("quizFeedback");
+  if(choice===q[2]){
+    quiz.correct++;quiz.streak++;quiz.best=Math.max(quiz.best,quiz.streak);
+    data.correct++;data.currentStreak++;data.bestStreak=Math.max(data.bestStreak,data.currentStreak);
+    btn.classList.add("correct");feedback.textContent="⚡ CORRECT! +"+(quiz.boost?20:10)+" XP";
+    const reward=quiz.boost?20:10;quiz.earned+=reward;
+    awardXP(reward,"Correct answer");
+    playTone(720,.15);burstAt(btn,"⚡");
+  }else{
+    btn.classList.add("wrong");
+    if(q[2]>=0)buttons[q[2]].classList.add("correct");
+    if(!quiz.shieldUsed&&(data.inventory.shield||0)>0){
+      data.inventory.shield--;quiz.shieldUsed=true;
+      feedback.textContent="🛡️ Streak Shield protected your streak!";
+    }else if(!quiz.secondUsed&&(data.inventory.second||0)>0){
+      data.inventory.second--;quiz.secondUsed=true;quiz.used[quiz.index]=false;
+      feedback.textContent="🔁 Second Chance! Choose again.";
+      buttons.forEach(b=>b.disabled=false);btn.disabled=true;quiz.answered--;data.answered--;
+      save();renderInventory();missileAt(btn);return;
+    }else{
+      quiz.streak=0;data.currentStreak=0;
+      feedback.textContent="🚀 MISSILE INCOMING... BOOM!";
+      missileAt(btn);playTone(120,.3);
+    }
+  }
+  $("runCorrect").textContent=quiz.correct;$("runStreak").textContent=quiz.streak;
+  save();render();renderInventory();
+  const next=document.createElement("button");next.className="btn";next.style.marginTop="12px";
+  next.textContent=quiz.index===quiz.questions.length-1?"View scorecard →":"Next question →";
+  next.onclick=()=>{quiz.index++;renderQuestion();};
+  $("quizArea").append(next);
+}
+function finishQuiz(){
+  if(quiz.finished)return;quiz.finished=true;
+  data.quizzes++;quiz.earned+=20;
+  awardXP(20,"Quiz completed");
+  $("quizState").textContent="COMPLETE";
+  const accuracy=quiz.answered?Math.round(quiz.correct/quiz.answered*100):0;
+  $("scorecard").style.display="block";
+  $("scorecard").textContent=
+    "🏆 QUIZ COMPLETE!\n\nCorrect: "+quiz.correct+" / "+quiz.questions.length+
+    "\nAccuracy: "+accuracy+"%\nXP earned this run: "+quiz.earned+
+    "\nBest streak: "+quiz.best+"\n\n"+(accuracy===100?"PERFECT RUN. ABSOLUTE AURA. ⚡":"Keep practising. Your next run can be even better.");
+  $("quizEndButtons").style.display="flex";
+  $("quizArea").innerHTML="<h3>"+(accuracy===100?"👑 PERFECT RUN!":"🏁 RUN COMPLETE")+"</h3><p>You got "+quiz.correct+" out of "+quiz.questions.length+" correct.</p>";
+  save();render();
+}
+function missileAt(element){
+  const rect=element.getBoundingClientRect();
+  const missile=document.createElement("div");missile.id="explosion";missile.textContent="🚀";
+  missile.style.left=Math.max(0,rect.left+rect.width/2-25)+"px";
+  missile.style.top=Math.max(0,rect.top-10)+"px";
+  missile.style.animation="missile .65s ease-in forwards";
+  document.body.append(missile);
+  setTimeout(()=>{
+    missile.textContent="💥";missile.style.left=(rect.left+rect.width/2-25)+"px";
+    missile.style.top=(rect.top-10)+"px";missile.style.animation="boom .65s ease-out forwards";
+  },520);
+  setTimeout(()=>missile.remove(),1300);
+  element.classList.add("shake");setTimeout(()=>element.classList.remove("shake"),400);
+}
+function burstAt(element,emoji){
+  const r=element.getBoundingClientRect(),el=document.createElement("div");
+  el.id="explosion";el.textContent=emoji;el.style.left=(r.left+r.width/2-20)+"px";el.style.top=(r.top-15)+"px";
+  document.body.append(el);setTimeout(()=>el.remove(),850);
+}
+
+/* Notes quiz: recognition-based, not AI-generated questions. */
+let noteQuiz={questions:[],index:0,correct:0,done:false};
+function makeNotesQuiz(){
+  const sentences=$("notesInput").value.split(/[\n.!?]+/).map(s=>s.trim()).filter(s=>s.length>12);
+  if(sentences.length<2){toast("Paste at least two useful sentences.");return;}
+  const unique=[...new Set(sentences)].slice(0,20);
+  noteQuiz={questions:unique.map(s=>({statement:s,options:[]})).sort(()=>Math.random()-.5),index:0,correct:0,done:false};
+  renderNoteQuestion();
+}
+function renderNoteQuestion(){
+  const area=$("notesQuizArea");area.innerHTML="";
+  if(noteQuiz.index>=noteQuiz.questions.length){
+    area.innerHTML="<div class='output'>Practice complete! You recognized "+noteQuiz.correct+" of "+noteQuiz.questions.length+" statements.</div>";
+    return;
+  }
+  const q=noteQuiz.questions[noteQuiz.index];
+  const options=[q.statement,...noteQuiz.questions.filter(x=>x!==q).map(x=>x.statement)].sort(()=>Math.random()-.5).slice(0,Math.min(4,noteQuiz.questions.length));
+  if(!options.includes(q.statement))options[0]=q.statement;
+  const card=document.createElement("div");card.className="question";
+  const h=document.createElement("h3");h.textContent="Which statement appeared in your notes?";
+  card.append(h);
+  const list=document.createElement("div");list.className="answers";
+  options.forEach(opt=>{
+    const b=document.createElement("button");b.className="answer";b.textContent=opt;
+    b.onclick=()=>{
+      [...list.children].forEach(x=>x.disabled=true);
+      const good=opt===q.statement;
+      if(good){noteQuiz.correct++;b.classList.add("correct");awardXP(10,"Notes quiz correct");}
+      else{b.classList.add("wrong");toast("Not quite! Try the next one.");}
+      const feedback=document.createElement("div");feedback.className="feedback";feedback.textContent=good?"Correct! +10 XP":"The correct statement was: "+q.statement;
+      card.append(feedback);
+      const next=document.createElement("button");next.className="btn";next.style.marginTop="12px";next.textContent="Next →";
+      next.onclick=()=>{noteQuiz.index++;renderNoteQuestion();};card.append(next);
+    };
+    list.append(b);
+  });
+  card.append(list);area.append(card);
+}
+
+/* Flashcards */
+let flashcards=[],flashIndex=0,flipped=false;
+function loadFlashcards(){
+  flashcards=$("flashInput").value.split("\n").map(line=>line.split("|").map(s=>s.trim())).filter(parts=>parts.length>=2&&parts[0]&&parts[1]).map(parts=>({q:parts[0],a:parts.slice(1).join(" | ")}));
+  flashIndex=0;flipped=false;renderFlashcard();
+  if(!flashcards.length)toast("Use one question | answer per line.");
+}
+function renderFlashcard(){
+  const area=$("flashArea");area.innerHTML="";
+  if(!flashcards.length){area.textContent="Your flashcards will appear here.";return;}
+  const box=document.createElement("button");box.className="answer";box.style.cssText="width:100%;min-height:120px;text-align:center;font-size:17px;font-weight:800";
+  box.textContent=(flipped?"ANSWER":"QUESTION")+" · "+(flashIndex+1)+"/"+flashcards.length+"\n\n"+(flipped?flashcards[flashIndex].a:flashcards[flashIndex].q);
+  box.onclick=()=>{flipped=!flipped;renderFlashcard();};
+  const row=document.createElement("div");row.className="btnrow";
+  const prev=document.createElement("button");prev.className="btn secondary";prev.textContent="← Previous";prev.onclick=()=>{flashIndex=(flashIndex-1+flashcards.length)%flashcards.length;flipped=false;renderFlashcard();};
+  const flip=document.createElement("button");flip.className="btn";flip.textContent="Flip card";flip.onclick=()=>{flipped=!flipped;renderFlashcard();};
+  const next=document.createElement("button");next.className="btn secondary";next.textContent="Next →";next.onclick=()=>{flashIndex=(flashIndex+1)%flashcards.length;flipped=false;renderFlashcard();};
+  row.append(prev,flip,next);area.append(box,row);
+}
+
+/* Focus timer */
+let timerMode="focus",remaining=25*60,totalDuration=25*60,interval=null,endsAt=0;
+function getModeDuration(){return Math.max(1,Math.min(180,Number($("focusMins").value)||25))*60;}
+function getBreakDuration(){return Math.max(1,Math.min(60,Number($("breakMins").value)||5))*60;}
+function formatTime(n){return String(Math.floor(n/60)).padStart(2,"0")+":"+String(n%60).padStart(2,"0");}
+function renderTimer(){
+  $("timerDisplay").textContent=formatTime(remaining);
+  $("timerMode").textContent=timerMode==="focus"?"FOCUS SESSION":"BREAK TIME";
+  $("timerStart").textContent=interval?"Pause":"Start";
+  $("timerBar").style.width=(totalDuration?Math.max(0,Math.min(100,(1-remaining/totalDuration)*100)):0)+"%";
+}
+function toggleTimer(){
+  if(interval){clearInterval(interval);interval=null;renderTimer();return;}
+  if(remaining<=0){resetTimer();}
+  endsAt=Date.now()+remaining*1000;
+  interval=setInterval(()=>{
+    remaining=Math.max(0,Math.ceil((endsAt-Date.now())/1000));renderTimer();
+    if(remaining<=0)timerComplete();
+  },250);
+  renderTimer();
+}
+function timerComplete(){
+  clearInterval(interval);interval=null;remaining=0;renderTimer();playTone(880,.3);
+  if(timerMode==="focus"){
+    data.focusSessions++;data.focusMinutes+=Math.round(totalDuration/60);
+    awardXP(25,"Focus session completed");
+    $("timerHint").textContent="Session complete! Take a break. +25 XP";
+    toast("FOCUS COMPLETE! +25 XP");
+  }else{
+    $("timerHint").textContent="Break complete. Ready for another focus session?";
+    toast("Break over. Back to the grind!");
+  }
+}
+function resetTimer(){
+  clearInterval(interval);interval=null;
+  remaining=timerMode==="focus"?getModeDuration():getBreakDuration();
+  totalDuration=remaining;renderTimer();
+}
+function switchTimerMode(){
+  clearInterval(interval);interval=null;timerMode=timerMode==="focus"?"break":"focus";resetTimer();
+  $("timerHint").textContent=timerMode==="focus"?"Complete a full focus session for +25 XP.":"Take a breather, then get back to it.";
+}
+$("focusMins").addEventListener("change",()=>{if(timerMode==="focus")resetTimer();});
+$("breakMins").addEventListener("change",()=>{if(timerMode==="break")resetTimer();});
+
+/* Aura engine: layered 3D lettering, glowing sparks and rising embers. */
+(() => {
+  const panel=$("zen-aura"),canvas=$("zen-aura-canvas"),ctx=canvas.getContext("2d");
+  const title=$("zen-aura-title"),subtitle=$("zen-aura-subtitle"),label=$("zen-aura-label"),tag=$("zen-aura-tag");
+  const messages=[
+    ["AN OG HAS ENTERED THE GRIND","AURA DETECTED · LOCK-IN PROTOCOL ACTIVE","COMMON SPAWN","electric"],
+    ["THE LEGEND RETURNS","THE ARENA IS YOURS","COMMON SPAWN","electric"],
+    ["A CERTIFIED GRINDER HAS SPAWNED","XP ACQUISITION MODE: ON","COMMON SPAWN","electric"],
+    ["THE SYLLABUS HAS BEEN PUT ON NOTICE","KNOWLEDGE LOADING...","COMMON SPAWN","fire"],
+    ["BRO SPAWNED INSTEAD OF STUDYING 💀","ACADEMIC COMEBACK LOADING","COMMON SPAWN","electric"],
+    ["QUEST ACCEPTED: BECOME UNSTOPPABLE","YOUR NEXT XP DROP AWAITS","COMMON SPAWN","electric"],
+    ["LOCK-IN PROTOCOL ACTIVATED","DISTRACTIONS: DISABLED","RARE SPAWN","fire"],
+    ["THE CHOSEN GRINDER HAS ARRIVED","THE SYSTEM RECOGNISES YOUR POTENTIAL","LEGENDARY SPAWN","legend"],
+    ["ALL RISE. THE LEGEND HAS RETURNED","THE GRIND NEVER FORGETS","LEGENDARY SPAWN","legend"],
+    ["MAIN CHARACTER ENERGY DETECTED","ABSOLUTE AURA OVERLOAD","RARE SPAWN","legend"],
+    ["BRAIN CELLS: DEPLOYED","MISSION: DESTROY THE QUIZ","COMMON SPAWN","fire"],
+    ["AN ABSOLUTE UNIT HAS ARRIVED","PREPARE FOR AN XP STORM","RARE SPAWN","electric"],
+    ["THE ARENA AWAITS ITS CHAMPION","YOUR STORY CONTINUES NOW","RARE SPAWN","legend"],
+    ["NO DISTRACTIONS. ONLY DOMINATION","ONE SESSION CLOSER TO THE NEXT RANK","COMMON SPAWN","fire"],
+    ["THE GRIND NEVER SLEEPS","YOUR COMEBACK STARTS NOW","COMMON SPAWN","electric"],
+    ["THE GOAT HAS LOGGED IN","PURE AURA. ZERO DISTRACTIONS.","RARE SPAWN","legend"]
+  ];
+  let particles=[],w=0,h=0,raf=0,last=0;
+  function resize(){
+    const r=panel.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,2);
+    w=r.width;h=r.height;canvas.width=w*dpr;canvas.height=h*dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  function choose(){
+    const roll=Math.random();
+    const pool=messages.filter(m=>roll<.025?m[2]==="LEGENDARY SPAWN":roll<.18?m[2]==="RARE SPAWN":m[2]==="COMMON SPAWN");
+    const m=pool[Math.floor(Math.random()*pool.length)];
+    title.textContent=m[0];subtitle.textContent=m[1];tag.textContent="✦ "+m[2]+" ✦";
+    panel.classList.remove("zen-fire","zen-legend");
+    if(m[3]==="fire")panel.classList.add("zen-fire");
+    if(m[3]==="legend")panel.classList.add("zen-legend");
+    label.textContent=m[3]==="legend"?"👑 LEGENDARY SYSTEM EVENT 👑":m[3]==="fire"?"🔥 ZENTOOLS INFERNO 🔥":"⚡ ZENTOOLS SYSTEM ⚡";
+    const rank=ranks[currentRank()];
+    if(m[2]==="COMMON SPAWN"&&m[3]==="electric")panel.style.setProperty("--aura",rank.color);
+  }
+  function spawn(){
+    const fire=panel.classList.contains("zen-fire"),legend=panel.classList.contains("zen-legend");
+    const colors=fire?["#ff4a18","#ff8b26","#ffd166","#fff1c1"]:legend?["#a78bfa","#e9d5ff","#8b5cf6","#fff"]:["#38bdf8","#60a5fa","#c4f1ff","#fff"];
+    const edge=Math.floor(Math.random()*4);
+    let x,y;
+    if(edge===0){x=Math.random()*w;y=h-3}
+    else if(edge===1){x=w-3;y=Math.random()*h}
+    else if(edge===2){x=Math.random()*w;y=3}
+    else{x=3;y=Math.random()*h}
+    particles.push({x,y,vx:(Math.random()-.5)*1.8,vy:-(.7+Math.random()*(fire?3.3:2.2)),life:1,decay:.009+Math.random()*.018,size:2+Math.random()*(fire?5:3),color:colors[Math.floor(Math.random()*colors.length)],fire});
+  }
+  function draw(){
+    raf=requestAnimationFrame(draw);
+    const now=performance.now();if(now-last<30)return;last=now;
+    ctx.clearRect(0,0,w,h);
+    for(let i=0;i<3;i++)spawn();
+    particles=particles.filter(p=>p.life>0);
+    for(const p of particles){
+      p.x+=p.vx;p.y+=p.vy;p.vx+=(Math.random()-.5)*.12;p.life-=p.decay;
+      ctx.globalAlpha=Math.max(0,p.life);ctx.fillStyle=p.color;ctx.shadowBlur=p.fire?14:9;ctx.shadowColor=p.color;
+      ctx.beginPath();
+      if(p.fire)ctx.ellipse(p.x,p.y,p.size*.6,p.size*1.5,Math.random()*.3,0,Math.PI*2);
+      else ctx.arc(p.x,p.y,p.size*p.life,0,Math.PI*2);
+      ctx.fill();
+    }
+    ctx.globalAlpha=1;ctx.shadowBlur=0;
+    if(particles.length>170)particles=particles.slice(-170);
+  }
+  resize();choose();
+  if(!matchMedia("(prefers-reduced-motion: reduce)").matches)draw();
+  if("ResizeObserver"in window)new ResizeObserver(resize).observe(panel);
+  else addEventListener("resize",resize);
+  document.addEventListener("visibilitychange",()=>{
+    if(document.visibilityState==="visible"){
+      choose();
+      if(!matchMedia("(prefers-reduced-motion: reduce)").matches&&!raf)draw();
+    }else{cancelAnimationFrame(raf);raf=0;}
+  });
+})();
+
+render();
+resetTimer();
+</script>
+</body>
 </html>
+
