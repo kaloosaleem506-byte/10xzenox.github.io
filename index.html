@@ -5,7 +5,7 @@
 <meta name="google-site-verification" content="ufnjMQQ1WID2jHJpawXJSVyZIt1bBYG5HcQtz8EaOY0" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#f7faff">
+<meta name="theme-color" content="#090b10">
 <title>ZenTools — Enter the Grind</title>
 <style>
 :root{--blue:#1677ff;--ink:#101828;--muted:#667085;--line:#e4eaf3;--bg:#f6f9ff;--card:#fff}
@@ -71,6 +71,29 @@ textarea{min-height:100px;resize:vertical}
 .badge{display:inline-block;border:1px solid var(--rank);color:var(--rank);background:color-mix(in srgb,var(--rank) 9%,white);padding:5px 10px;border-radius:999px;font-size:11px;font-weight:900}
 .rank-name{font-size:27px;font-weight:950;color:var(--rank);letter-spacing:-1px}
 footer{text-align:center;padding:30px 12px;color:var(--muted);font-size:12px}
+
+/* Zen AI V2 chat polish */
+.ai-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:10px 0}
+.ai-chat-shell{border:1px solid #dce7f7;border-radius:16px;background:linear-gradient(180deg,#f8fbff,#f2f7ff);padding:12px}
+#aiChat{border:0!important;background:transparent!important;padding:8px!important;scroll-behavior:smooth}
+.ai-message{max-width:min(88%,760px);padding:11px 14px;border:1px solid #e4eaf3;border-radius:15px;background:#fff;box-shadow:0 3px 12px #1b376408;overflow-wrap:anywhere}
+.ai-message.user{align-self:flex-end;background:#eaf3ff;border-color:#cfe2ff;border-bottom-right-radius:5px}
+.ai-message.assistant{align-self:flex-start;border-bottom-left-radius:5px}
+.ai-message-meta{font-size:10px;letter-spacing:.5px;font-weight:900;color:#667085;margin-bottom:5px}
+.ai-message-body{font-size:14px;line-height:1.65;white-space:pre-wrap}
+.ai-message.user .ai-message-meta{text-align:right;color:#1765cf}
+.ai-typing-dots{display:inline-flex;gap:4px;align-items:center;padding:5px 0}
+.ai-typing-dots span{width:6px;height:6px;border-radius:50%;background:#1677ff;animation:aiDot 1s infinite ease-in-out}
+.ai-typing-dots span:nth-child(2){animation-delay:.14s}.ai-typing-dots span:nth-child(3){animation-delay:.28s}
+@keyframes aiDot{0%,60%,100%{transform:translateY(0);opacity:.45}30%{transform:translateY(-4px);opacity:1}}
+.ai-input-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:9px;align-items:end}
+.ai-input-row textarea{min-height:82px;max-height:220px}
+.ai-compose-hint{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:7px}
+.ai-status-live{display:inline-flex;align-items:center;gap:6px}
+.ai-status-live:before{content:"";width:7px;height:7px;background:#98a2b3;border-radius:50%}
+.ai-status-live.connected:before{background:#16a34a;box-shadow:0 0 0 3px #16a34a1c}
+@media(max-width:560px){.ai-message{max-width:96%}.ai-chat-shell{padding:7px}.ai-input-row{grid-template-columns:1fr}.ai-input-row .btn{width:100%}}
+@media(prefers-reduced-motion:reduce){.ai-typing-dots span{animation:none}}
 #toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#111827;color:white;padding:12px 18px;border-radius:12px;z-index:80;font-size:13px;box-shadow:0 10px 35px #0003;transition:.25s;max-width:90%;text-align:center}
 #toast.show{opacity:1;transform:translate(-50%,0)}
 #zen-aura{--aura:#20a5ff;position:relative;isolation:isolate;overflow:hidden;margin:12px 0 24px;padding:31px 17px;min-height:170px;text-align:center;border-radius:18px;background:#080d18;border:1px solid #258dff77;box-shadow:0 0 28px #168bff20,inset 0 0 28px #168bff12}
@@ -102,7 +125,392 @@ footer{text-align:center;padding:30px 12px;color:var(--muted);font-size:12px}
 @keyframes shake{25%{transform:translateX(-5px)}50%{transform:translateX(5px)}75%{transform:translateX(-3px}}
 @media(max-width:700px){.card,.third{grid-column:span 12}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.nav{flex-wrap:wrap}.nav nav{order:3;width:100%}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+
+/* ZenTools Quiz Premium polish */
+#quiz .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 11px;border:1px solid #b9d5ff;border-radius:999px;background:linear-gradient(135deg,#edf5ff,#fff);letter-spacing:2px}
+#quiz h2{font-size:clamp(25px,4vw,34px);letter-spacing:-1px;margin-top:10px}
+#quiz .card{border-color:#dce7f8;box-shadow:0 14px 38px #173b7110;transition:transform .2s,box-shadow .2s}
+#quiz .card:hover{box-shadow:0 18px 42px #173b7117}
+#quiz .card:first-child{background:linear-gradient(160deg,#fff 65%,#f3f8ff)}
+#quiz .card:first-child h3:before{content:"✦";color:#1677ff;margin-right:8px}
+#quiz .card label{margin-top:14px}
+#quiz .btn:not(.secondary){box-shadow:0 7px 18px #1677ff2b}
+.quiz-progress-wrap{margin:12px 0 16px;padding:12px 13px;border:1px solid #e2eaf7;border-radius:13px;background:linear-gradient(135deg,#f8fbff,#f1f6ff)}
+.quiz-progress-meta{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:11px;font-weight:850;color:#52627a;margin-bottom:8px}
+.quiz-progress-track{height:8px;background:#e1e9f5;border-radius:99px;overflow:hidden}
+#quizProgressFill{height:100%;width:0;background:linear-gradient(90deg,#1677ff,#6c5ce7);border-radius:99px;transition:width .35s ease;box-shadow:0 0 12px #1677ff55}
+#quiz .question{border-color:#dce7f7;background:linear-gradient(145deg,#fff,#fbfdff);padding:clamp(14px,3vw,22px);box-shadow:0 5px 20px #173b7108}
+#quiz .question h3{font-size:clamp(16px,2.5vw,19px);line-height:1.55}
+#quiz .answer{min-height:46px;border-radius:12px;padding:12px 14px;transition:border-color .15s,background .15s,transform .15s}
+#quiz .answer:hover:not(:disabled){transform:translateX(3px);box-shadow:0 5px 14px #1677ff10}
+#quiz .answer.correct{box-shadow:inset 3px 0 #16a34a}
+#quiz .answer.wrong{box-shadow:inset 3px 0 #ef4444}
+#quiz .feedback{padding:10px 12px;border-radius:10px;background:#f4f7fb;line-height:1.5}
+#quizState{letter-spacing:.7px}
+@media(max-width:560px){#quiz .card{padding:15px}.quiz-progress-wrap{padding:10px}}
+
+
+/* Quiz Arena v3 — meaningful game-mode and scorecard UI */
+#quiz .grid{align-items:start}
+#quiz .card{border-radius:22px}
+#quiz .card:first-child{position:relative;overflow:hidden}
+#quiz .card:first-child:after{content:"ZEN ARENA / V3";display:block;margin-top:15px;color:#8aa3c7;font:800 9px ui-monospace,monospace;letter-spacing:2px}
+#quiz .quiz-launch{width:100%;padding:14px 16px;border-radius:13px;background:linear-gradient(110deg,#1268ee,#6a5cff);box-shadow:0 9px 24px #286df044!important;font-size:14px}
+.quiz-feature-list{display:flex;gap:7px;flex-wrap:wrap;margin-top:15px}
+.quiz-feature-list span{font-size:10px;font-weight:800;color:#245b9e;background:#edf5ff;border:1px solid #d8e8ff;padding:6px 8px;border-radius:999px}
+.quiz-run-stats{grid-template-columns:repeat(3,minmax(0,1fr))}
+#quiz .quiz-live-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:8px 0 14px}
+#quiz .quiz-live-mode{font-size:10px;font-weight:900;letter-spacing:1px;padding:7px 9px;border-radius:999px;background:#edf4ff;color:#155fc4}
+#quiz .quiz-live-timer{font-size:14px;font-weight:950;font-variant-numeric:tabular-nums;padding:8px 11px;border:1px solid #dce7f7;border-radius:11px;background:#fff;color:#172033;min-width:95px;text-align:center}
+#quiz .quiz-live-timer.urgent{color:#b42318;border-color:#fda29b;background:#fff1f0;animation:timerPulse .7s infinite alternate}
+@keyframes timerPulse{to{transform:scale(1.04);box-shadow:0 0 0 4px #f0443815}}
+#quiz .question{animation:quizEnter .28s ease-out both}
+@keyframes quizEnter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+#scorecard.quiz-results{padding:0;overflow:hidden;background:#fff;border-color:#dbe6f7}
+.quiz-result-hero{padding:22px;background:radial-gradient(circle at 90% 0,#d9e8ff,transparent 42%),linear-gradient(135deg,#f7faff,#eef4ff);border-bottom:1px solid #dce7f7}
+.quiz-result-kicker{font-size:10px;letter-spacing:2px;font-weight:950;color:#2864b7}
+.quiz-result-title{font-size:25px;font-weight:1000;letter-spacing:-1px;margin:7px 0;color:#101828}
+.quiz-result-sub{font-size:12px;color:#667085}
+.quiz-result-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;padding:14px}
+.quiz-result-stat{padding:13px;border:1px solid #e4eaf3;border-radius:13px;background:#fbfdff}
+.quiz-result-stat strong{display:block;font-size:23px;letter-spacing:-1px}
+.quiz-result-stat span{display:block;color:#667085;font-size:10px;font-weight:800;margin-top:3px}
+.quiz-result-foot{padding:0 14px 15px;color:#52627a;font-size:12px;line-height:1.6}
+@media(max-width:560px){.quiz-run-stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.quiz-run-stats .stat{padding:10px}.quiz-run-stats .stat strong{font-size:21px}.quiz-result-grid{gap:7px;padding:10px}.quiz-result-hero{padding:18px}}
+
+
+
+/* ZenTools Midnight — site-wide premium dark system */
+:root{color-scheme:dark;--blue:#5b9dff;--ink:#edf2ff;--muted:#98a5bd;--line:#252c3b;--bg:#090b10;--card:#11151e}
+html{scroll-behavior:smooth;scroll-padding-top:92px}
+body{background:radial-gradient(ellipse at 50% -20%,#18243a 0,transparent 45%),var(--bg);color:var(--ink)}
+header{background:#0b0e14eF;backdrop-filter:blur(18px);border-bottom:1px solid #293144}
+.logo span{color:#69a8ff}
+.pill{background:#151f30;color:#a7ceff;border:1px solid #293d5b}
+nav a{color:#a6b2c8}nav a:hover{background:#17243a;color:#8dbaff}
+.eyebrow{color:#78b2ff}
+h1,h2,h3,strong{color:#f2f5ff}
+p{color:var(--muted)}
+.card{background:linear-gradient(145deg,#141925,#10141c);border-color:#283144;box-shadow:0 12px 34px #0003}
+.card:hover{border-color:#35425b}
+label{color:#c5cfe0}
+input,textarea,select{background:#0b0f16;border-color:#30394b;color:#eef3ff}
+input::placeholder,textarea::placeholder{color:#68768e}
+input:focus,textarea:focus,select:focus{border-color:#5b9dff;box-shadow:0 0 0 3px #5b9dff20}
+.btn{background:linear-gradient(120deg,#347ff0,#5d68f5);box-shadow:0 7px 22px #326df326}
+.btn:hover{filter:brightness(1.12)}
+.btn.secondary{background:#192438;color:#b9d5ff;border:1px solid #2d4569}
+.btn.dark{background:#222b3b;color:#f1f5ff}
+.btn.danger{background:#321b20;color:#ffaaa9;border:1px solid #653138}
+.stat{background:#0e131c;border-color:#283143}
+.stat span,.smalltext,.muted{color:#93a0b8}
+.output{background:#0b1018;border-color:#293246;color:#dbe4f5}
+.question{background:#0d121b;border-color:#2a3548}
+.answer{background:#111824;border-color:#303b50;color:#e0e8f8}
+.answer:hover:not(:disabled){background:#18263b;border-color:#5b9dff}
+.answer.correct{background:#10281f;border-color:#247b50;color:#9af0bd}
+.answer.wrong{background:#30191f;border-color:#a43e4d;color:#ffb7c0}
+.answer.eliminated{opacity:.3}
+.progress{background:#252e3e}
+.badge{background:color-mix(in srgb,var(--rank) 14%,#10151f)}
+.shop-item{background:#10151f;border-color:#2b3548}
+.ai-chat-shell{background:linear-gradient(180deg,#101925,#0d121b);border-color:#2c3b52}
+.ai-message{background:#141b27;border-color:#2d3749;color:#e5ecfa;box-shadow:0 3px 14px #0002}
+.ai-message.user{background:#152a45;border-color:#2e5486}
+.ai-message-meta{color:#9aaac2}.ai-message.user .ai-message-meta{color:#9ccaff}
+#aiChat{color:#e5ecfa}
+.quiz-feature-list span{color:#b6d5ff;background:#14223a;border-color:#2a4268}
+#quiz .eyebrow{background:#121e30;border-color:#2c4770;color:#8dbaff}
+#quiz .card{border-color:#2a3549;box-shadow:0 14px 38px #0003}
+#quiz .card:first-child{background:linear-gradient(160deg,#151d2b 65%,#111a29)}
+#quiz .quiz-progress-wrap{background:linear-gradient(135deg,#121c2b,#101722);border-color:#29374c}
+.quiz-progress-meta{color:#a9b8d0}.quiz-progress-track{background:#273246}
+#quiz .question{background:linear-gradient(145deg,#151c29,#10151e);border-color:#2b374b}
+#quiz .feedback{background:#141b27;color:#d5e0f3}
+#quiz .quiz-live-mode{background:#152742;color:#9bc8ff}
+#quiz .quiz-live-timer{background:#101722;border-color:#303b50;color:#e4edff}
+#quiz .quiz-live-timer.urgent{background:#321b20;color:#ffb0ac;border-color:#8b4246}
+#scorecard.quiz-results{background:#10151e;border-color:#2c374a}
+.quiz-result-hero{background:radial-gradient(circle at 90% 0,#1c3455,transparent 42%),linear-gradient(135deg,#171f2d,#111722);border-color:#2c374a}
+.quiz-result-kicker{color:#8dbaff}.quiz-result-title{color:#f1f5ff}.quiz-result-sub{color:#a5b1c5}
+.quiz-result-stat{background:#0d121a;border-color:#2b3547}.quiz-result-stat strong{color:#f2f5ff}.quiz-result-stat span,.quiz-result-foot{color:#a4b0c5}
+#levelup{background:#03060bdc}.levelbox{background:#131925;border:1px solid #35415a;color:#eef3ff}.levelbox p{color:#aab7cc}
+footer{border-top:1px solid #222a38;color:#7f8ca3}
+/* Feedback panel */
+.feedback-card{position:relative;overflow:hidden}
+.feedback-heading{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.feedback-icon{display:grid;place-items:center;flex:0 0 58px;width:58px;height:58px;border-radius:18px;background:linear-gradient(145deg,#1d3558,#171d37);border:1px solid #38557f;color:#9bc8ff;font-size:29px;box-shadow:0 0 30px #367cff18}
+.feedback-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.feedback-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px}
+.feedback-submit{min-width:160px}
+.feedback-privacy{margin:13px 0 0;font-size:11px}
+.feedback-thanks{margin-top:15px;padding:13px 15px;border:1px solid #286e53;background:#10271f;border-radius:12px;color:#a3f0c5;font-size:13px;line-height:1.6}
+@media(max-width:560px){.feedback-fields{grid-template-columns:1fr}.feedback-icon{width:46px;height:46px;flex-basis:46px;border-radius:14px}.feedback-submit{min-width:0}}
+
+
+
+/* ZENTOOLS MIDNIGHT VISUAL OVERHAUL — global, not just quiz/feedback */
+:root{
+  color-scheme:dark;
+  --blue:#69a8ff !important;
+  --ink:#edf3ff !important;
+  --muted:#9aa9bf !important;
+  --line:#273246 !important;
+  --bg:#080b11 !important;
+  --card:#10151e !important;
+}
+html{background:#080b11!important;scroll-behavior:smooth}
+body{
+  margin:0!important;color:#edf3ff!important;
+  background:
+    radial-gradient(ellipse at 12% 0%,rgba(35,103,205,.16),transparent 34%),
+    radial-gradient(ellipse at 92% 28%,rgba(91,56,180,.10),transparent 28%),
+    linear-gradient(180deg,#080b11 0%,#0b1018 48%,#080b11 100%)!important;
+  background-attachment:fixed!important;
+}
+body,main{color:#edf3ff!important}
+header{background:rgba(8,11,17,.88)!important;border-bottom:1px solid #253044!important;backdrop-filter:blur(18px)!important;-webkit-backdrop-filter:blur(18px)!important;box-shadow:0 8px 30px #0003!important}
+.nav{max-width:1200px!important}
+.logo{color:#f5f8ff!important;text-shadow:0 0 24px #1677ff22}
+.logo span{color:#78b5ff!important}
+nav a{color:#a9b6ca!important;transition:background .18s,color .18s,transform .18s!important}
+nav a:hover,nav a:focus-visible{background:#17253a!important;color:#a8ceff!important;transform:translateY(-1px)}
+.pill{background:#111d2e!important;color:#9bc7ff!important;border:1px solid #2a4265!important}
+main{max-width:1200px!important;padding-top:30px!important}
+.hero{padding:18px 0 28px!important}
+.hero h1{color:#f4f7ff!important;text-shadow:0 8px 35px #0005!important}
+.hero h1 span{color:#7bb7ff!important;text-shadow:0 0 32px #267bff3d!important}
+.eyebrow{color:#80baff!important}
+h1,h2,h3,h4,strong,b{color:#edf3ff}
+p,.muted,.smalltext,label,.sub{color:#9aa9bf!important}
+.card,.feedback-card,.quiz-card,.study-card,.tool-card{
+  background:linear-gradient(145deg,rgba(19,26,38,.97),rgba(13,18,27,.98))!important;
+  color:#edf3ff!important;border:1px solid #263247!important;
+  border-radius:18px!important;box-shadow:0 14px 38px #0003, inset 0 1px 0 #ffffff08!important;
+  transition:border-color .2s,transform .2s,box-shadow .2s!important;
+}
+.card:hover,.feedback-card:hover,.quiz-card:hover,.study-card:hover,.tool-card:hover{border-color:#38537b!important;box-shadow:0 18px 45px #0004,0 0 0 1px #478eff0b!important}
+.stat,.question,.shop-item,.output,.ai-chat-shell,.quiz-result-stat,.quiz-progress-wrap,.inventory-item,.tool-output{
+  background:#0c121c!important;color:#eaf1ff!important;border-color:#273348!important;
+}
+.stat strong,.stat span,.question strong,.shop-item h3{color:#edf3ff!important}
+.progress,.quiz-progress-track{background:#202b3b!important}
+.progress div,.quiz-progress-fill{background:linear-gradient(90deg,#3987ff,#7fc4ff)!important;box-shadow:0 0 15px #3987ff55!important}
+.badge{background:#15243a!important;border-color:var(--rank,#4b92ff)!important;color:#b6d4ff!important}
+.rank-name{filter:drop-shadow(0 0 16px #3888ff20)}
+.btn,.feedback-submit,.quiz-start,.primary-button{
+  background:linear-gradient(135deg,#3988ff,#1763db)!important;color:#fff!important;
+  border:1px solid #75b1ff55!important;border-radius:11px!important;
+  box-shadow:0 7px 20px #1763db28!important;
+}
+.btn:hover,.feedback-submit:hover,.quiz-start:hover,.primary-button:hover{filter:brightness(1.1)!important;transform:translateY(-2px)!important;box-shadow:0 10px 26px #1763db40!important}
+.btn.secondary,.secondary,.btn.dark{background:#182336!important;color:#c8ddff!important;border:1px solid #2b3e5b!important;box-shadow:none!important}
+.btn.danger{background:#321a20!important;color:#ffb4bc!important;border:1px solid #63303a!important}
+input,textarea,select{
+  background:#0a1019!important;color:#edf3ff!important;border:1px solid #2a3548!important;
+  border-radius:11px!important;box-shadow:inset 0 1px 2px #0002!important;
+}
+input::placeholder,textarea::placeholder{color:#65748b!important;opacity:1!important}
+input:focus,textarea:focus,select:focus{border-color:#579aff!important;box-shadow:0 0 0 3px #3988ff24!important;outline:none!important}
+option{background:#101722!important;color:#edf3ff!important}
+.answer{background:#111a28!important;color:#dce8fb!important;border-color:#2b3a50!important}
+.answer:hover:not(:disabled){background:#17263b!important;border-color:#579aff!important;color:#fff!important}
+.answer.correct{background:#10271f!important;color:#a5f0c5!important;border-color:#25815a!important}
+.answer.wrong{background:#2b171d!important;color:#ffb5c0!important;border-color:#8b3949!important}
+.ai-chat-shell{background:linear-gradient(145deg,#101925,#0c121b)!important;border-color:#28364b!important}
+.ai-message{background:#151e2c!important;color:#e7efff!important;border-color:#2a394f!important;box-shadow:0 5px 18px #0002!important}
+.ai-message.user{background:#132744!important;border-color:#2f5d92!important;color:#e6f2ff!important}
+.ai-message-meta,.ai-message.user .ai-message-meta{color:#91bfff!important}
+.ai-message-body{color:#e7efff!important}
+#aiChat{background:transparent!important}
+#toast{background:#151d2a!important;border:1px solid #34445d!important;color:#f3f7ff!important}
+#zen-aura{box-shadow:0 0 45px #168bff24,inset 0 0 35px #168bff16!important}
+#feedback,.feedback-section{scroll-margin-top:100px}
+.feedback-card{background:linear-gradient(145deg,#121a27,#0c111a)!important;border-color:#2c3b52!important}
+.feedback-icon{box-shadow:0 0 34px #367cff25!important}
+footer{color:#8291a8!important;border-top:1px solid #202a39!important}
+hr{border:0;border-top:1px solid #263247!important}
+::selection{background:#2e6fc5;color:#fff}
+:focus-visible{outline:2px solid #69a8ff!important;outline-offset:3px!important}
+@media(max-width:700px){
+  .nav{padding:12px 14px!important}
+  nav{gap:4px!important}
+  nav a{font-size:12px!important;padding:7px!important}
+  main{padding:20px 13px 45px!important}
+  .card{padding:15px!important}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+
+/* FINAL MIDNIGHT FINISH — subtle depth, colour and readable contrast */
+body{position:relative;isolation:isolate;min-height:100vh}
+body::before{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(109,157,230,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(109,157,230,.035) 1px,transparent 1px),
+    radial-gradient(circle at 18% 12%,rgba(30,115,255,.12),transparent 28%),
+    radial-gradient(circle at 82% 38%,rgba(132,74,255,.085),transparent 30%),
+    radial-gradient(circle at 50% 88%,rgba(20,180,220,.055),transparent 32%);
+  background-size:36px 36px,36px 36px,auto,auto,auto;
+  -webkit-mask-image:linear-gradient(to bottom,black,rgba(0,0,0,.72) 70%,transparent);
+  mask-image:linear-gradient(to bottom,black,rgba(0,0,0,.72) 70%,transparent);
+}
+main{position:relative}
+.hero{position:relative}
+.hero:after{
+  content:"";display:block;width:min(210px,45vw);height:3px;margin-top:22px;border-radius:99px;
+  background:linear-gradient(90deg,#49a1ff,#8b5cf6,#38d9d2);box-shadow:0 0 24px #3988ff55;
+}
+.hero h1 span{
+  background:linear-gradient(95deg,#83c5ff 0%,#6c9cff 38%,#bd9aff 72%,#61e7e0 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent!important;
+}
+section[id]{scroll-margin-top:100px}
+section[id]:not(#dashboard){position:relative}
+section[id]:not(#dashboard):not(#aura-section){padding-top:4px}
+section[id="quiz"] .eyebrow,section[id="study"] .eyebrow,section[id="ai"] .eyebrow,
+section[id="store"] .eyebrow,section[id="feedback"] .eyebrow{
+  text-shadow:0 0 18px #438eff28;
+}
+h2{color:#f2f6ff}
+.card{backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.card:focus-within{border-color:#4c83c7!important;box-shadow:0 0 0 1px #4b91ff16,0 18px 45px #0004!important}
+.stat{border-radius:14px}
+.stat strong{background:linear-gradient(100deg,#f5f8ff,#a8caff);-webkit-background-clip:text;background-clip:text;color:transparent!important}
+.btn:focus-visible,nav a:focus-visible{outline:2px solid #91c6ff!important;outline-offset:3px}
+#zen-aura{isolation:isolate}
+#zen-aura:before{filter:blur(2px);opacity:.72}
+#zen-aura-title{letter-spacing:-.8px}
+#aiStatus{white-space:nowrap}
+#feedbackThanks{color:#a3f0c5!important}
+footer{position:relative}
+@media(max-width:700px){
+  body::before{background-size:28px 28px,28px 28px,auto,auto,auto}
+  .hero h1{letter-spacing:-1.5px}
+}
+@media(prefers-reduced-motion:reduce){
+  body::before{scroll-behavior:auto}
+}
+/* ZENTOOLS — MIDNIGHT BACKGROUND */
+html {
+  min-height: 100%;
+  background: #050711 !important;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      ellipse at 50% 0%,
+      rgba(35, 105, 230, 0.32),
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse at 100% 35%,
+      rgba(115, 55, 220, 0.18),
+      transparent 45%
+    ),
+    radial-gradient(
+      ellipse at 0% 75%,
+      rgba(0, 155, 210, 0.13),
+      transparent 45%
+    ),
+    linear-gradient(
+      180deg,
+      #080d1a 0%,
+      #060912 50%,
+      #03050a 100%
+    ) !important;
+  background-color: #050711 !important;
+  background-attachment: fixed !important;
+  color: #edf3ff !important;
+}
+
+/* Grid across the entire page */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(
+      rgba(125, 165, 230, 0.045) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(125, 165, 230, 0.045) 1px,
+      transparent 1px
+    );
+  background-size: 40px 40px;
+}
+
+/* Midnight header */
+header {
+  background: rgba(5, 8, 16, 0.92) !important;
+  border-bottom: 1px solid #293955 !important;
+  backdrop-filter: blur(18px);
+}
+
+/* Premium gradient title */
+.hero h1 span {
+  background: linear-gradient(
+    100deg,
+    #70c5ff,
+    #8585ff,
+    #c18bff,
+    #58e6d5
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent !important;
+}
+
+/* Keep the whole page dark */
+main {
+  background: transparent !important;
+}
+
+.card {
+  background: linear-gradient(
+    145deg,
+    rgba(19, 27, 43, 0.97),
+    rgba(10, 15, 26, 0.98)
+  ) !important;
+  border-color: #293954 !important;
+  color: #edf3ff !important;
+}
+
+input,
+textarea,
+select {
+  background: #090f1b !important;
+  color: #edf3ff !important;
+  border-color: #30415d !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #8190aa !important;
+}
+
+.btn {
+  background: linear-gradient(
+    135deg,
+    #3988ff,
+    #6957ed
+  ) !important;
+  color: white !important;
+}
+
+body {
+  background: #ff00ff !important;
+}
+
 </style>
+    
 </head>
 <body>
 <header>
@@ -115,6 +523,7 @@ footer{text-align:center;padding:30px 12px;color:var(--muted);font-size:12px}
       <a href="#study">Study tools</a>
       <a href="#ai">Zen AI</a>
       <a href="#store">Zen Store</a>
+      <a href="#feedback">Feedback</a>
     </nav>
   </div>
 </header>
@@ -189,23 +598,45 @@ footer{text-align:center;padding:30px 12px;color:var(--muted);font-size:12px}
   <div class="grid">
     <div class="card">
       <h3>Choose a quiz</h3>
-      <label for="quizTopic">Topic</label>
-      <select id="quizTopic">
-        <option value="science">Science basics</option>
-        <option value="space">Space</option>
-        <option value="computing">Computing</option>
-        <option value="maths">Maths basics</option>
+      <label for="quizBoard">Board / syllabus</label>
+      <select id="quizBoard">
+        <option value="JKBOSE">JKBOSE</option>
+        <option value="CBSE">CBSE</option>
+        <option value="NCERT">NCERT</option>
       </select>
-      <label for="quizCount">Questions</label>
+      <label for="quizClass">Class</label>
+      <select id="quizClass">
+        <option value="6">Class 6</option><option value="7">Class 7</option>
+        <option value="8" selected>Class 8</option><option value="9">Class 9</option><option value="10">Class 10</option>
+      </select>
+      <label for="quizTopic">Subject</label>
+      <select id="quizTopic">
+        <option value="maths">Mathematics</option>
+        <option value="science">Science</option>
+        <option value="englishGrammar">English Grammar</option>
+        <option value="englishLiterature">English Literature</option>
+        <option value="sst">Social Science (History, Geography & Civics)</option>
+        <option value="computing">Computer / ICT</option>
+        <option value="hindi">Hindi</option>
+      </select>
+      <label for="quizCount">Questions per run</label>
       <select id="quizCount"><option>5</option><option>10</option></select>
-      <div class="btnrow"><button class="btn" onclick="startQuiz()">Enter the arena →</button></div>
-      <p class="smalltext">Each correct answer: +10 XP. Finish a quiz: +20 XP. One reward per question.</p>
+      <label for="quizMode">Run mode</label>
+      <select id="quizMode"><option value="classic">🧠 Classic · no timer</option><option value="blitz">⚡ Blitz · 20 seconds per question</option></select>
+      <div class="btnrow"><button class="btn quiz-launch" onclick="startQuiz()">⚡ Enter the arena</button></div>
+      <div class="quiz-feature-list"><span>✓ Question rotation</span><span>✓ XP rewards</span><span>✓ Instant feedback</span><span>✓ Run scorecard</span></div>
+      <p class="smalltext">Question packs are currently foundation practice, not verified chapter-by-chapter syllabus sets. Choose Blitz for a timed challenge.</p>
     </div>
     <div class="card">
       <div class="row"><h3>🏆 Current run</h3><span class="badge" id="quizState">READY</span></div>
-      <div class="stats">
+      <div class="stats quiz-run-stats">
         <div class="stat"><strong id="runCorrect">0</strong><span>Correct</span></div>
         <div class="stat"><strong id="runStreak">0</strong><span>Streak</span></div>
+        <div class="stat"><strong id="runAccuracy">—</strong><span>Accuracy</span></div>
+      </div>
+      <div class="quiz-progress-wrap" aria-live="polite">
+        <div class="quiz-progress-meta"><span id="quizProgressLabel">Ready when you are</span><span id="quizProgressPercent">0%</span></div>
+        <div class="quiz-progress-track" role="progressbar" aria-label="Quiz progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="quizProgressTrack"><div id="quizProgressFill"></div></div>
       </div>
       <div id="quizArea"><p>Start a quiz to begin your run.</p></div>
       <div id="scorecard" style="display:none" class="output"></div>
@@ -281,15 +712,26 @@ footer{text-align:center;padding:30px 12px;color:var(--muted);font-size:12px}
   <p class="sub">Ask questions, understand lessons, summarize notes, or generate practice questions without leaving ZenTools.</p>
   <div class="grid">
     <div class="card wide">
-      <div class="row"><h3>💬 Chat with Zen AI</h3><span class="badge" id="aiStatus">NOT CONNECTED</span></div>
-      <p class="smalltext">Connect the free Cloudflare Worker backend to activate AI. Your API key stays on the server, not in this public website.</p>
-      <div id="aiChat" class="output" style="min-height:220px;max-height:440px;overflow-y:auto;display:flex;flex-direction:column;gap:12px" aria-live="polite"><div><strong>Zen AI</strong><br>Yo! I'm ready to help you study. Once the AI backend is connected, ask me anything. ⚡</div></div>
-      <label for="aiMode">Mode</label>
-      <select id="aiMode"><option value="tutor">Study tutor</option><option value="quiz">Quiz me</option><option value="summary">Summarize notes</option><option value="exam">Exam-ready answer</option><option value="general">General assistant</option></select>
+      <div class="row"><h3>💬 Chat with Zen AI</h3><span class="badge ai-status-live" id="aiStatus">NOT CONNECTED</span></div>
+      <p class="smalltext">Your AI study companion. Your API key stays on the server, not in this public website.</p>
+      <div class="ai-chat-shell">
+        <div id="aiChat" class="output" style="min-height:250px;max-height:480px;overflow-y:auto;display:flex;flex-direction:column;gap:12px" aria-live="polite" aria-relevant="additions text">
+          <div class="ai-message assistant"><div class="ai-message-meta">ZEN AI · READY</div><div class="ai-message-body">Yo! I'm ready to help you study. Ask me anything. ⚡</div></div>
+        </div>
+      </div>
+      <div class="ai-toolbar">
+        <label for="aiMode" style="margin:0;flex:1;min-width:190px">Chat mode
+          <select id="aiMode"><option value="tutor">📚 Study tutor</option><option value="quiz">🎯 Quiz me</option><option value="summary">📝 Summarize notes</option><option value="exam">✍️ Exam-ready answer</option><option value="general">💬 General assistant</option></select>
+        </label>
+        <button class="btn secondary small" onclick="clearAIChat()">＋ New chat</button>
+      </div>
       <label for="aiInput">Your message</label>
-      <textarea id="aiInput" rows="3" placeholder="e.g. Explain the laws of reflection in simple Class 8 language..."></textarea>
-      <div class="btnrow"><button class="btn" id="aiSend" onclick="sendAIMessage()">Send to Zen AI ↗</button><button class="btn secondary" onclick="clearAIChat()">Clear chat</button></div>
-      <p class="smalltext">AI answers can be wrong, so verify important facts. Never share passwords or private information.</p>
+      <div class="ai-input-row">
+        <textarea id="aiInput" rows="3" placeholder="Ask Zen AI anything… (Enter to send, Shift + Enter for a new line)"></textarea>
+        <button class="btn" id="aiSend" onclick="sendAIMessage()">Send ↗</button>
+      </div>
+      <div class="ai-compose-hint"><span class="smalltext">⚡ Keep it curious. Never share passwords or private information.</span><span class="smalltext" id="aiTypingHint" aria-live="polite"></span></div>
+      <p class="smalltext">AI answers can be wrong, so verify important facts. Recent chat memory is saved in this browser (up to 12 messages); New chat clears that conversation. Avoid private or sensitive info.</p>
     </div>
   </div>
 </section>
@@ -313,6 +755,53 @@ footer{text-align:center;padding:30px 12px;color:var(--muted);font-size:12px}
     <p class="smalltext">Resetting removes saved XP, Points, purchases, and stats. This cannot be undone.</p>
   </div>
 </section>
+
+<section id="feedback" style="margin-top:32px">
+  <div class="grid">
+    <div class="card wide feedback-card">
+      <div class="feedback-heading">
+        <div>
+          <div class="eyebrow">HELP US LEVEL UP</div>
+          <h2 style="margin-top:10px">💬 Feedback</h2>
+          <p class="sub">Tell us what feels good, what feels broken, and what you want next.</p>
+        </div>
+        <div class="feedback-icon" aria-hidden="true">✦</div>
+      </div>
+      <form id="feedbackForm" onsubmit="saveFeedback(event)">
+        <div class="feedback-fields">
+          <div>
+            <label for="feedbackRating">How's ZenTools so far?</label>
+            <select id="feedbackRating" required>
+              <option value="">Choose a rating</option>
+              <option value="5">★★★★★ — Absolutely love it</option>
+              <option value="4">★★★★☆ — Pretty good</option>
+              <option value="3">★★★☆☆ — It's alright</option>
+              <option value="2">★★☆☆☆ — Needs work</option>
+              <option value="1">★☆☆☆☆ — Not great</option>
+            </select>
+          </div>
+          <div>
+            <label for="feedbackType">What's this about?</label>
+            <select id="feedbackType" required>
+              <option value="Design">Design & appearance</option>
+              <option value="Quiz">Quiz & questions</option>
+              <option value="AI">Zen AI</option>
+              <option value="Bug">Something is broken</option>
+              <option value="Idea">Feature idea</option>
+              <option value="Other">Something else</option>
+            </select>
+          </div>
+        </div>
+        <label for="feedbackMessage">Your feedback</label>
+        <textarea id="feedbackMessage" maxlength="1200" placeholder="Be honest — what should we improve? (12–1200 characters)" required></textarea>
+        <div class="feedback-bottom"><span id="feedbackCharCount" class="smalltext">0 / 1200</span><button class="btn feedback-submit" type="submit">Save feedback ↗</button></div>
+      </form>
+      <div id="feedbackThanks" class="feedback-thanks" role="status" aria-live="polite" hidden></div>
+      <p class="smalltext feedback-privacy">🔒 Privacy note: feedback is saved only in this browser. It is <strong>not sent to the developer</strong> automatically.</p>
+    </div>
+  </div>
+</section>
+
 </main>
 
 <footer>ZenTools · Study hard. Earn XP. Become a Zen Legend. ⚡<br>Made for the grind. Free to host.</footer>
@@ -546,14 +1035,51 @@ async function copyText(id){
 
 /* ZenTools AI chat. Set this URL to your deployed Cloudflare Worker endpoint. */
 const AI_API_URL = "https://zentools-ai.kaloosaleem506.workers.dev";
-let aiHistory=[];
+const AI_HISTORY_KEY="zentools_ai_history_v1";
+function loadAIHistory(){
+  try{
+    const saved=JSON.parse(localStorage.getItem(AI_HISTORY_KEY)||"[]");
+    return Array.isArray(saved)?saved.filter(x=>x&&["user","assistant"].includes(x.role)&&typeof x.content==="string").slice(-12):[];
+  }catch(e){return [];}
+}
+function saveAIHistory(){
+  try{localStorage.setItem(AI_HISTORY_KEY,JSON.stringify(aiHistory.slice(-12)));}
+  catch(e){toast("Chat memory couldn't be saved in this browser.");}
+}
+let aiHistory=loadAIHistory();
+let aiPendingNode=null;
 function appendAIMessage(role,text){
-  const chat=$("aiChat"),wrap=document.createElement("div"),label=document.createElement("strong"),body=document.createElement("div");
-  label.textContent=role==="user"?"You":"Zen AI";body.textContent=text;body.style.whiteSpace="pre-wrap";body.style.overflowWrap="anywhere";
-  wrap.append(label,document.createElement("br"),body);wrap.style.padding="10px 12px";wrap.style.borderRadius="10px";wrap.style.background=role==="user"?"#edf4ff":"#fff";wrap.style.border="1px solid #e4eaf3";chat.append(wrap);chat.scrollTop=chat.scrollHeight;
+  const chat=$("aiChat"),wrap=document.createElement("div"),label=document.createElement("div"),body=document.createElement("div");
+  wrap.className="ai-message "+(role==="user"?"user":"assistant");
+  label.className="ai-message-meta";label.textContent=role==="user"?"YOU":"ZEN AI";
+  body.className="ai-message-body";body.textContent=text;
+  wrap.append(label,body);chat.append(wrap);chat.scrollTop=chat.scrollHeight;
+  return wrap;
+}
+function showAITyping(){
+  removeAITyping();
+  const chat=$("aiChat"),wrap=document.createElement("div"),label=document.createElement("div"),dots=document.createElement("div");
+  wrap.className="ai-message assistant";wrap.id="aiTypingBubble";
+  label.className="ai-message-meta";label.textContent="ZEN AI · THINKING";
+  dots.className="ai-typing-dots";dots.setAttribute("aria-label","Zen AI is thinking");
+  for(let i=0;i<3;i++)dots.append(document.createElement("span"));
+  wrap.append(label,dots);chat.append(wrap);chat.scrollTop=chat.scrollHeight;
+  aiPendingNode=wrap;$("aiTypingHint").textContent="Zen AI is thinking…";
+}
+function removeAITyping(){
+  if(aiPendingNode)aiPendingNode.remove();
+  aiPendingNode=null;$("aiTypingHint").textContent="";
+}
+function setAIStatus(text,connected=false){
+  const status=$("aiStatus");status.textContent=text;
+  status.classList.toggle("connected",connected);
 }
 function clearAIChat(){
-  aiHistory=[];$("aiChat").innerHTML="";appendAIMessage("assistant","Chat cleared. What would you like to learn?");
+  if($("aiSend").disabled){toast("Wait for Zen AI to finish this reply.");return;}
+  aiHistory=[];saveAIHistory();$("aiChat").innerHTML="";
+  appendAIMessage("assistant","New chat started. What would you like to learn? ⚡");
+  setAIStatus("READY");
+  $("aiInput").focus();
 }
 async function sendAIMessage(){
   const input=$("aiInput"),message=input.value.trim(),btn=$("aiSend"),mode=$("aiMode").value;
@@ -563,7 +1089,7 @@ async function sendAIMessage(){
     appendAIMessage("assistant","I'm not connected to the AI server yet. Deploy the supplied Cloudflare Worker, then replace AI_API_URL in index.html with your Worker URL. No API key belongs in this file.");return;
   }
   if(btn.disabled)return;
-  appendAIMessage("user",message);input.value="";btn.disabled=true;btn.textContent="Thinking…";$("aiStatus").textContent="THINKING";
+  appendAIMessage("user",message);input.value="";btn.disabled=true;btn.textContent="Thinking…";setAIStatus("THINKING");showAITyping();
   const modeInstructions={
     tutor:"Act as a patient school study tutor. Explain clearly, use examples, and adapt to the student's level.",
     quiz:"Quiz the student on the requested topic. Ask one question at a time and wait for their answer; don't reveal the answer immediately.",
@@ -576,65 +1102,187 @@ async function sendAIMessage(){
     const result=await response.json().catch(()=>({}));
     if(!response.ok)throw new Error(result.error||("Server error ("+response.status+")"));
     const answer=String(result.reply||result.text||"").trim();if(!answer)throw new Error("The AI returned an empty answer. Try again.");
-    aiHistory.push({role:"user",content:message},{role:"assistant",content:answer});aiHistory=aiHistory.slice(-12);appendAIMessage("assistant",answer);$("aiStatus").textContent="CONNECTED";
-  }catch(error){appendAIMessage("assistant","Couldn't reach Zen AI: "+error.message+". Check the Worker URL and its AI API key, then try again.");$("aiStatus").textContent="CONNECTION ERROR";}
-  finally{btn.disabled=false;btn.textContent="Send to Zen AI ↗";}
+    aiHistory.push({role:"user",content:message},{role:"assistant",content:answer});aiHistory=aiHistory.slice(-12);saveAIHistory();removeAITyping();appendAIMessage("assistant",answer);setAIStatus("CONNECTED",true);
+  }catch(error){removeAITyping();appendAIMessage("assistant","Couldn't reach Zen AI: "+error.message+". Try again in a moment.");setAIStatus("CONNECTION ERROR");}
+  finally{removeAITyping();btn.disabled=false;btn.textContent="Send ↗";}
+}
+// Restore the recent conversation from this browser so context survives a refresh.
+if(aiHistory.length){
+  $("aiChat").innerHTML="";
+  aiHistory.forEach(item=>appendAIMessage(item.role==="user"?"user":"assistant",item.content));
+  setAIStatus("MEMORY LOADED",true);
 }
 $("aiInput").addEventListener("keydown",event=>{if(event.key==="Enter"&&!event.shiftKey){event.preventDefault();sendAIMessage();}});
 
 /* Quiz bank */
 const banks={
-science:[
-["What is the SI unit of force?",["Newton","Joule","Watt","Pascal"],0],
-["Which organ pumps blood?",["Lungs","Heart","Kidney","Brain"],1],
-["Which gas do plants absorb for photosynthesis?",["Oxygen","Nitrogen","Carbon dioxide","Hydrogen"],2],
-["What is the boiling point of water at sea level?",["50°C","100°C","150°C","0°C"],1],
-["Which part of a plant absorbs most water?",["Flower","Leaf","Root hairs","Stem"],2],
-["Which type of mirror is commonly used as a rear-view mirror?",["Plane","Convex","Concave","None"],1],
-["What is the basic unit of life?",["Atom","Cell","Organ","Tissue"],1],
-["Which force opposes motion between surfaces?",["Gravity","Magnetism","Friction","Buoyancy"],2],
-["What is the image in a plane mirror?",["Always inverted","Erect and virtual","Always smaller","Real"],1],
-["Which material is a good conductor of electricity?",["Rubber","Glass","Copper","Wood"],2]
-],
-space:[
-["Which planet is known as the Red Planet?",["Venus","Mars","Jupiter","Mercury"],1],
-["What is at the centre of our solar system?",["Earth","The Moon","The Sun","Mars"],2],
-["Which is Earth's natural satellite?",["Mars","Moon","Venus","Sun"],1],
-["Which planet is largest in our solar system?",["Earth","Saturn","Jupiter","Neptune"],2],
-["What force keeps planets in orbit?",["Friction","Gravity","Sound","Electricity"],1],
-["Does the Moon produce its own visible light?",["Yes","No, it reflects sunlight","Only at night","Sometimes"],1]
-],
-computing:[
-["What does CPU stand for?",["Central Processing Unit","Computer Power Utility","Core Program Unit","Central Print Unit"],0],
-["Which is an input device?",["Monitor","Speaker","Keyboard","Printer"],2],
-["Which is a web programming language?",["HTML","JPEG","MP3","PDF"],0],
-["What does a loop do in programming?",["Repeats instructions","Deletes files","Turns off a screen","Prints paper"],0],
-["What does HTML mainly structure?",["Web pages","Batteries","Networks only","Images only"],0],
-["Which is a safe password practice?",["Reuse one password everywhere","Share passwords","Use unique strong passwords","Use your name only"],2]
-],
 maths:[
 ["What is 7 × 8?",["54","56","64","48"],1],
 ["What is the square of 9?",["18","72","81","99"],2],
 ["Simplify 3x + 2x.",["5x","6x","5x²","x"],0],
 ["What is 15% of 200?",["15","20","30","40"],2],
 ["What is 12²?",["124","144","122","24"],1],
-["Factorise x² − 9.",["(x−9)(x+1)","(x−3)(x+3)","(x−3)²","x(x−9)"],1]
+["Factorise x² − 9.",["(x−9)(x+1)","(x−3)(x+3)","(x−3)²","x(x−9)"],1],
+["Solve 2x + 5 = 17.",["5","6","7","11"],1],
+["What is the perimeter of a square with side 6 cm?",["12 cm","24 cm","36 cm²","18 cm"],1],
+["Which fraction is equivalent to 3/4?",["6/10","9/12","12/20","4/3"],1],
+["What is the mean of 4, 6 and 8?",["5","6","7","18"],1],
+["What is the cube of 3?",["9","18","27","36"],2],
+["A triangle's angles add up to:",["90°","180°","270°","360°"],1],
+["Convert 0.25 to a percentage.",["2.5%","25%","250%","0.25%"],1],
+["What is √144?",["10","11","12","14"],2],
+["If y = 4, what is 3y − 2?",["8","10","12","14"],1]
+],
+science:[
+["What is the SI unit of force?",["Newton","Joule","Watt","Pascal"],0],
+["Which organ pumps blood?",["Lungs","Heart","Kidney","Brain"],1],
+["Which gas do plants absorb for photosynthesis?",["Oxygen","Nitrogen","Carbon dioxide","Hydrogen"],2],
+["What is the boiling point of water at sea level?",["50°C","100°C","150°C","0°C"],1],
+["Which part of a plant absorbs most water?",["Flower","Leaf","Root hairs","Stem"],2],
+["Which mirror is commonly used as a rear-view mirror?",["Plane","Convex","Concave","None"],1],
+["What is the basic unit of life?",["Atom","Cell","Organ","Tissue"],1],
+["Which force opposes motion between surfaces?",["Gravity","Magnetism","Friction","Buoyancy"],2],
+["What is the image in a plane mirror?",["Always inverted","Erect and virtual","Always smaller","Real"],1],
+["Which material is a good conductor of electricity?",["Rubber","Glass","Copper","Wood"],2],
+["Which part of the cell controls its activities?",["Cell wall","Nucleus","Cytoplasm","Vacuole"],1],
+["Which process changes liquid water into water vapour?",["Freezing","Condensation","Evaporation","Melting"],2],
+["Which nutrient is mainly used by the body for growth and repair?",["Protein","Water only","Fibre","Salt"],0],
+["Sound travels fastest through which of these?",["Vacuum","Air","Water","Solids"],3],
+["Which of these is a renewable energy source?",["Coal","Petrol","Solar energy","Natural gas"],2]
+],
+englishGrammar:[
+["Choose the correct sentence.",["She go to school.","She goes to school.","She going to school.","She gone to school."],1],
+["Identify the adjective: 'The bright moon shone.'",["moon","shone","bright","the"],2],
+["What is the past tense of 'teach'?",["teached","taught","teaching","teaches"],1],
+["Choose the correct article: '___ honest person'",["A","An","The a","No article ever"],1],
+["Which word is a pronoun?",["quickly","they","green","under"],1],
+["Choose the correctly punctuated sentence.",["Where are you.","Where are you?","Where are you,","Where are you!"],1],
+["What is the plural of 'child'?",["childs","childes","children","childrens"],2],
+["Identify the adverb: 'He ran quickly.'",["He","ran","quickly","none"],2],
+["Choose the correct form: 'They ___ playing.'",["is","am","are","be"],2],
+["Which is a conjunction?",["although","brightly","table","blue"],0],
+["Choose the correct comparative form of 'good'.",["gooder","best","better","more good"],2],
+["In 'The cat slept', what is the verb?",["The","cat","slept","none"],2],
+["Choose the correct spelling.",["necessary","neccessary","necesary","necessery"],0],
+["Which sentence is in the future tense?",["I walked home.","I walk home.","I will walk home.","I am walking home."],2],
+["What is the subject in 'The birds sing loudly'?",["The birds","sing","loudly","birds sing"],0]
+],
+englishLiterature:[
+["What is a poem's stanza?",["A group of lines","The book cover","The author's name","A punctuation mark"],0],
+["A comparison using 'like' or 'as' is called:",["Metaphor","Simile","Alliteration","Irony"],1],
+["The central message of a story is its:",["Setting","Theme","Dialogue","Title page"],1],
+["Where and when a story takes place is its:",["Plot","Setting","Conflict","Rhyme"],1],
+["A person or figure in a story is a:",["Character","Chapter","Publisher","Paragraph"],0],
+["Words that imitate sounds are an example of:",["Onomatopoeia","Hyperbole","Simile","Foreshadowing"],0],
+["The sequence of events in a story is the:",["Plot","Mood only","Glossary","Stanza"],0],
+["The narrator who uses 'I' to tell a story often uses:",["First person","Second person","Third person only","No point of view"],0],
+["A comparison that says one thing is another is a:",["Simile","Metaphor","Rhyme","Refrain"],1],
+["The feeling created for a reader by a text is often called:",["Mood","Index","Footnote","Syllable"],0],
+["Repeated initial consonant sounds are called:",["Alliteration","Personification","Plot","Dialogue"],0],
+["A conversation between characters is called:",["Dialogue","Setting","Theme","Imagery only"],0]
+],
+sst:[
+["Which imaginary line divides Earth into Northern and Southern Hemispheres?",["Prime Meridian","Equator","Tropic of Cancer","Arctic Circle"],1],
+["A system in which citizens elect representatives is a:",["Monarchy","Democracy","Dictatorship","Colony"],1],
+["Which is a primary source for studying the past?",["A later textbook summary","A diary written at the time","A modern movie","An unsourced blog"],1],
+["Which direction does the Sun appear to rise from?",["North","South","East","West"],2],
+["What does a map scale help you find?",["Population only","Real distance represented on the map","The weather","A country's language"],1],
+["Which of these is a natural resource?",["Plastic toy","Sunlight","Mobile app","Concrete road"],1],
+["The main purpose of a constitution is to:",["Set basic rules for governing a country","List every citizen's hobbies","Predict weather","Replace all courts"],0],
+["Which activity belongs mainly to the primary sector?",["Banking","Farming","Software design","Retail sales"],1],
+["Lines of longitude run from:",["East to west","North Pole to South Pole","Only around the Equator","West to east in circles parallel to Equator"],1],
+["Which institution generally makes laws in a democracy?",["Legislature","Weather office","Museum","Hospital"],0],
+["What is migration?",["Movement of people from one place to another","A type of rainfall","The making of maps","The growth of a crop"],0],
+["Which is a renewable natural resource when managed sustainably?",["Coal","Petroleum","Forests","Natural gas"],2],
+["What does a historical timeline show?",["Events in chronological order","Only places on a map","Different types of soil","The daily temperature"],0],
+["Which is commonly used to represent elevation on a physical map?",["Contour lines","Speech marks","Bar graphs only","Compass letters only"],0],
+["What is the main role of an independent judiciary?",["Interpret laws and deliver justice","Collect school homework","Run all businesses","Forecast rainfall"],0]
+],
+computing:[
+["What does CPU stand for?",["Central Processing Unit","Computer Power Utility","Core Program Unit","Central Print Unit"],0],
+["Which is an input device?",["Monitor","Speaker","Keyboard","Printer"],2],
+["Which language structures web pages?",["HTML","JPEG","MP3","PDF"],0],
+["What does a loop do in programming?",["Repeats instructions","Deletes files","Turns off a screen","Prints paper"],0],
+["Which is a safe password practice?",["Reuse one password everywhere","Share passwords","Use unique strong passwords","Use your name only"],2],
+["What is an algorithm?",["A step-by-step procedure","A computer screen","A type of cable","A file extension"],0],
+["Which one is an operating system?",["Linux","HTML","Bluetooth","JPEG"],0],
+["What does URL identify?",["A web resource address","A keyboard key","A CPU component","A spreadsheet formula"],0],
+["Which data type commonly stores True or False?",["Boolean","String","Image","Decimal only"],0],
+["What is debugging?",["Finding and fixing errors in code","Decorating a webpage","Deleting all programs","Charging a laptop"],0],
+["Which is an example of cloud storage?",["Saving files to an online drive","Writing only on paper","A local keyboard","A computer fan"],0],
+["What does HTML's 'a' element commonly create?",["A hyperlink","A heading only","A video codec","A password"],0],
+["Which file extension is commonly used for JavaScript?",[".js",".jpg",".mp3",".exe only"],0],
+["What is phishing?",["A trick to steal information by pretending to be trusted","A way to cool a computer","A programming loop","A backup method"],0],
+["Which action helps protect files from loss?",["Regular backups","Sharing passwords","Ignoring updates","Using one copy only"],0]
+],
+hindi:[
+["'जल' का सामान्य अर्थ क्या है?",["अग्नि","पानी","हवा","धरती"],1],
+["'दिन' का विलोम शब्द क्या है?",["सुबह","दोपहर","रात","प्रकाश"],2],
+["'सुंदर' किस प्रकार का शब्द है?",["संज्ञा","विशेषण","क्रिया","सर्वनाम"],1],
+["'लड़का' का बहुवचन क्या है?",["लड़की","लड़के","लड़कापन","लड़कों ने"],1],
+["'मैं विद्यालय जाता हूँ।' वाक्य में सर्वनाम कौन-सा है?",["विद्यालय","जाता","मैं","हूँ"],2],
+["'खाना' शब्द किसका उदाहरण हो सकता है?",["क्रिया","विराम चिह्न","केवल सर्वनाम","समुच्चयबोधक"],0],
+["'कमल' का समानार्थी शब्द कौन-सा है?",["पंकज","पर्वत","आकाश","अग्नि"],0],
+["वाक्य के अंत में सामान्यतः कौन-सा विराम चिह्न लगाया जाता है?",["अल्पविराम","पूर्ण विराम","योजक","उद्धरण चिह्न"],1],
+["'ईमानदार' का विलोम शब्द क्या है?",["सच्चा","बेईमान","दयालु","मेहनती"],1],
+["'राम पुस्तक पढ़ता है।' वाक्य में क्रिया कौन-सी है?",["राम","पुस्तक","पढ़ता है","वाक्य"],2],
+["'आँखों का तारा' मुहावरे का अर्थ क्या है?",["बहुत प्रिय","बहुत दूर","बहुत क्रोधित","बहुत थका हुआ"],0],
+["'पेड़' का बहुवचन क्या है?",["पेड़ों","पेड़ें","पेड़","पेड़िया"],2]
 ]
 };
-let quiz={questions:[],index:0,correct:0,answered:0,streak:0,best:0,earned:0,finished:false,used:{},runId:0,bonus:false,secondUsed:false,shieldUsed:false,boost:false};
+const QUIZ_SEEN_KEY="zentools_quiz_seen_v1";
+function getSeenQuestions(){try{return JSON.parse(localStorage.getItem(QUIZ_SEEN_KEY)||"{}")}catch(e){return {}}}
+function saveSeenQuestions(value){try{localStorage.setItem(QUIZ_SEEN_KEY,JSON.stringify(value))}catch(e){}}
+function shuffleQuestions(items){const a=[...items];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+
+let quiz={questions:[],index:0,correct:0,answered:0,streak:0,best:0,earned:0,finished:false,used:{},runId:0,bonus:false,secondUsed:false,shieldUsed:false,boost:false,mode:"classic",timeLeft:20,timerId:null,startedAt:0};
+function stopQuizTimer(){if(quiz.timerId){clearInterval(quiz.timerId);quiz.timerId=null;}}
 function startQuiz(){
   const topic=$("quizTopic").value;
-  let bank=[...banks[topic]];
-  if((data.inventory.boss||0)>0){
-    bank.push(["Solve: 2(x + 3) = 18.",["x=3","x=6","x=9","x=12"],1]);
-  }
-  bank.sort(()=>Math.random()-.5);
+  const board=$("quizBoard").value;
+  const schoolClass=$("quizClass").value;
   const count=Number($("quizCount").value);
-  quiz={questions:bank.slice(0,count),index:0,correct:0,answered:0,streak:0,best:0,earned:0,finished:false,used:{},runId:Date.now(),bonus:false,secondUsed:false,shieldUsed:false,boost:false};
+  const mode=$("quizMode")?$("quizMode").value:"classic";
+  stopQuizTimer();
+  const sourceBank=banks[topic]||[];
+  if(!sourceBank.length){toast("That subject's question pack is coming soon.");return;}
+  const poolKey=[board,schoolClass,topic].join("::");
+  const seen=getSeenQuestions();
+  let already=Array.isArray(seen[poolKey])?seen[poolKey]:[];
+  let unseen=sourceBank.filter(q=>!already.includes(q[0]));
+  let resetPool=false;
+  if(unseen.length===0){
+    // Start a fresh cycle only after every question in this board/class/subject pool was used.
+    already=[];unseen=sourceBank.slice();resetPool=true;
+  }
+  const selectedRaw=shuffleQuestions(unseen).slice(0,Math.min(count,sourceBank.length));
+  // Shuffle answer choices too, while tracking the correct choice's new position.
+  const selected=selectedRaw.map(q=>{
+    const choices=shuffleQuestions(q[1].map((text,index)=>({text,index})));
+    return [q[0],choices.map(choice=>choice.text),choices.findIndex(choice=>choice.index===q[2]),q[3]||""];
+  });
+  if(selected.length<count&&!resetPool){toast("Only "+selected.length+" fresh questions remain in this subject pack. No repeats this run!");}
+  selected.forEach(q=>{if(!already.includes(q[0]))already.push(q[0]);});
+  // Mark the pool as exhausted only after all entries have appeared at least once.
+  seen[poolKey]=already.filter(question=>sourceBank.some(q=>q[0]===question));
+  if(seen[poolKey].length>=sourceBank.length){
+    // The next run starts a fresh cycle; current run remains protected from repeats.
+    seen[poolKey]=seen[poolKey].slice(-sourceBank.length);
+  }
+  saveSeenQuestions(seen);
+  if(resetPool)toast("You've mastered this question pool — starting a fresh cycle!");
+  quiz={questions:selected,index:0,correct:0,answered:0,streak:0,best:0,earned:0,finished:false,used:{},runId:Date.now(),bonus:false,secondUsed:false,shieldUsed:false,boost:false,board,schoolClass,topic,mode,timeLeft:20,timerId:null,startedAt:Date.now(),timeouts:0};
+  if((data.inventory.boss||0)>0){
+    const bossQ=["Boss round: solve 2(x + 3) = 18.",["x = 3","x = 6","x = 9","x = 12"],1];
+    if(!selected.some(q=>q[0]===bossQ[0]))quiz.questions[quiz.questions.length-1]=bossQ;
+  }
   if(data.inventory.boost>0){data.inventory.boost--;quiz.boost=true;}
-  if(data.inventory.boss>0&&bank.length>Number($("quizCount").value)-1)data.inventory.boss--;
+  if(data.inventory.boss>0)data.inventory.boss--;
   save();renderInventory();
   $("quizState").textContent="IN PROGRESS";$("scorecard").style.display="none";$("quizEndButtons").style.display="none";
+  $("quizProgressLabel").textContent="Warming up…";$("quizProgressPercent").textContent="0%";$("quizProgressFill").style.width="0%";$("quizProgressTrack").setAttribute("aria-valuenow","0");
+  $("quizArea").innerHTML='<p class="smalltext">'+board+" · Class "+schoolClass+" · "+$("quizTopic").selectedOptions[0].text+"</p>";
+  $("runAccuracy").textContent="0%";
   renderQuestion();
 }
 function renderQuestion(){
@@ -642,6 +1290,26 @@ function renderQuestion(){
   if(!q){finishQuiz();return;}
   $("runCorrect").textContent=quiz.correct;$("runStreak").textContent=quiz.streak;
   const area=$("quizArea");area.innerHTML="";
+  const completed=quiz.index;
+  const percent=Math.round((completed/quiz.questions.length)*100);
+  $("quizProgressLabel").textContent="Question "+(quiz.index+1)+" of "+quiz.questions.length;
+  $("quizProgressPercent").textContent=percent+"%";
+  $("quizProgressFill").style.width=percent+"%";
+  $("quizProgressTrack").setAttribute("aria-valuenow",String(percent));
+  stopQuizTimer();
+  const live=document.createElement("div");live.className="quiz-live-head";
+  const modeTag=document.createElement("span");modeTag.className="quiz-live-mode";modeTag.textContent=quiz.mode==="blitz"?"⚡ BLITZ MODE":"🧠 CLASSIC MODE";
+  const timer=document.createElement("span");timer.className="quiz-live-timer";timer.id="quizLiveTimer";timer.textContent=quiz.mode==="blitz"?"20s left":"∞ untimed";
+  live.append(modeTag,timer);area.append(live);
+  if(quiz.mode==="blitz"){
+    quiz.timeLeft=20;
+    quiz.timerId=setInterval(()=>{
+      if(quiz.finished||quiz.used[quiz.index]){stopQuizTimer();return;}
+      quiz.timeLeft--;
+      const clock=$("quizLiveTimer");if(clock){clock.textContent=quiz.timeLeft+"s left";if(quiz.timeLeft<=5)clock.classList.add("urgent");}
+      if(quiz.timeLeft<=0){stopQuizTimer();handleQuizTimeout(q);}
+    },1000);
+  }
   const top=document.createElement("div");top.className="row";
   const label=document.createElement("strong");label.textContent="Question "+(quiz.index+1)+" / "+quiz.questions.length;
   const xp=document.createElement("span");xp.className="badge";xp.textContent="+"+(quiz.boost?20:10)+" XP";
@@ -673,6 +1341,7 @@ function useFifty(q,answers,button){
 }
 function answerQuestion(choice,btn,answers,q){
   if(quiz.finished||quiz.used[quiz.index])return;
+  stopQuizTimer();
   quiz.used[quiz.index]=true;quiz.answered++;data.answered++;
   const buttons=[...answers.children];buttons.forEach(b=>b.disabled=true);
   const feedback=$("quizFeedback");
@@ -700,26 +1369,44 @@ function answerQuestion(choice,btn,answers,q){
       missileAt(btn);playTone(120,.3);
     }
   }
+  feedback.textContent += "  Answer: "+q[1][q[2]];
   $("runCorrect").textContent=quiz.correct;$("runStreak").textContent=quiz.streak;
+  $("runAccuracy").textContent=Math.round(quiz.correct/Math.max(1,quiz.answered)*100)+"%";
   save();render();renderInventory();
   const next=document.createElement("button");next.className="btn";next.style.marginTop="12px";
   next.textContent=quiz.index===quiz.questions.length-1?"View scorecard →":"Next question →";
   next.onclick=()=>{quiz.index++;renderQuestion();};
   $("quizArea").append(next);
 }
+function handleQuizTimeout(q){
+  if(quiz.finished||quiz.used[quiz.index])return;
+  quiz.used[quiz.index]=true;quiz.answered++;quiz.timeouts=(quiz.timeouts||0)+1;data.answered++;
+  quiz.streak=0;data.currentStreak=0;
+  const buttons=[...document.querySelectorAll("#quizArea .answer")];buttons.forEach(b=>b.disabled=true);
+  if(buttons[q[2]])buttons[q[2]].classList.add("correct");
+  const feedback=$("quizFeedback");if(feedback)feedback.textContent="⏱️ TIME'S UP! Correct answer: "+q[1][q[2]];
+  $("runCorrect").textContent=quiz.correct;$("runStreak").textContent=quiz.streak;
+  $("runAccuracy").textContent=Math.round(quiz.correct/Math.max(1,quiz.answered)*100)+"%";
+  save();render();
+  const next=document.createElement("button");next.className="btn";next.style.marginTop="12px";
+  next.textContent=quiz.index===quiz.questions.length-1?"View scorecard →":"Next question →";
+  next.onclick=()=>{quiz.index++;renderQuestion();};$("quizArea").append(next);
+}
 function finishQuiz(){
-  if(quiz.finished)return;quiz.finished=true;
-  data.quizzes++;quiz.earned+=20;
-  awardXP(20,"Quiz completed");
-  $("quizState").textContent="COMPLETE";
+  if(quiz.finished)return;stopQuizTimer();quiz.finished=true;
+  $("quizProgressLabel").textContent="Run complete · "+quiz.board+" · Class "+quiz.schoolClass;
+  $("quizProgressPercent").textContent="100%";$("quizProgressFill").style.width="100%";$("quizProgressTrack").setAttribute("aria-valuenow","100");
+  data.quizzes++;quiz.earned+=20;awardXP(20,"Quiz completed");$("quizState").textContent="COMPLETE";
   const accuracy=quiz.answered?Math.round(quiz.correct/quiz.answered*100):0;
-  $("scorecard").style.display="block";
-  $("scorecard").textContent=
-    "🏆 QUIZ COMPLETE!\n\nCorrect: "+quiz.correct+" / "+quiz.questions.length+
-    "\nAccuracy: "+accuracy+"%\nXP earned this run: "+quiz.earned+
-    "\nBest streak: "+quiz.best+"\n\n"+(accuracy===100?"PERFECT RUN. ABSOLUTE AURA. ⚡":"Keep practising. Your next run can be even better.");
+  const elapsed=Math.max(1,Math.round((Date.now()-(quiz.startedAt||Date.now()))/1000));
+  const minutes=Math.floor(elapsed/60),seconds=elapsed%60;
+  const grade=accuracy===100?"S+ PERFECT":accuracy>=80?"A RANK":accuracy>=60?"B RANK":accuracy>=40?"C RANK":"KEEP GRINDING";
+  const headline=accuracy===100?"Flawless run. Absolute aura. ⚡":accuracy>=80?"Strong run — you're cooking. 🔥":accuracy>=60?"Solid base. One more run can level this up.":"No shame in the reset. Review the misses and run it back.";
+  const card=$("scorecard");card.style.display="block";card.className="output quiz-results";
+  card.innerHTML='<div class="quiz-result-hero"><div class="quiz-result-kicker">ZEN ARENA · RUN COMPLETE</div><div class="quiz-result-title">'+grade+'</div><div class="quiz-result-sub">'+quiz.board+' · Class '+quiz.schoolClass+' · '+(quiz.mode==="blitz"?"Blitz mode":"Classic mode")+'</div></div>'+
+    '<div class="quiz-result-grid"><div class="quiz-result-stat"><strong>'+quiz.correct+'/'+quiz.questions.length+'</strong><span>QUESTIONS CORRECT</span></div><div class="quiz-result-stat"><strong>'+accuracy+'%</strong><span>ACCURACY</span></div><div class="quiz-result-stat"><strong>+'+quiz.earned+'</strong><span>XP EARNED</span></div><div class="quiz-result-stat"><strong>'+quiz.best+'</strong><span>BEST STREAK</span></div><div class="quiz-result-stat"><strong>'+minutes+':'+String(seconds).padStart(2,"0")+'</strong><span>TIME TAKEN</span></div><div class="quiz-result-stat"><strong>'+(quiz.timeouts||0)+'</strong><span>TIMEOUTS</span></div></div><div class="quiz-result-foot">'+headline+'<br>Correct answers: '+quiz.correct+' · Missed or timed out: '+(quiz.questions.length-quiz.correct)+'. '+(accuracy<100?'Try another run to build consistency.':'You cleared every question in this run.')+'</div>';
   $("quizEndButtons").style.display="flex";
-  $("quizArea").innerHTML="<h3>"+(accuracy===100?"👑 PERFECT RUN!":"🏁 RUN COMPLETE")+"</h3><p>You got "+quiz.correct+" out of "+quiz.questions.length+" correct.</p>";
+  $("quizArea").innerHTML='<h3>'+(accuracy===100?'👑 PERFECT RUN!':accuracy>=80?'🏆 RANK SECURED':'🏁 RUN COMPLETE')+'</h3><p>Your results are ready below.</p>';
   save();render();
 }
 function missileAt(element){
@@ -926,8 +1613,34 @@ $("breakMins").addEventListener("change",()=>{if(timerMode==="break")resetTimer(
   });
 })();
 
+
+
+// Feedback form: intentionally local-only; no backend or external transmission.
+const feedbackMessageInput=document.getElementById("feedbackMessage");
+const feedbackCharCount=document.getElementById("feedbackCharCount");
+feedbackMessageInput.addEventListener("input",()=>{feedbackCharCount.textContent=feedbackMessageInput.value.length+" / 1200";});
+function saveFeedback(event){
+  event.preventDefault();
+  const rating=document.getElementById("feedbackRating").value;
+  const type=document.getElementById("feedbackType").value;
+  const message=feedbackMessageInput.value.trim();
+  if(message.length<12){toast("Add a little more detail (at least 12 characters).");feedbackMessageInput.focus();return;}
+  const entry={rating:Number(rating),type,message,createdAt:new Date().toISOString()};
+  try{
+    const old=JSON.parse(localStorage.getItem("zentools_feedback_v1")||"[]");
+    old.push(entry);
+    localStorage.setItem("zentools_feedback_v1",JSON.stringify(old.slice(-20)));
+    const thanks=document.getElementById("feedbackThanks");
+    thanks.hidden=false;
+    thanks.innerHTML="<strong>Thanks for helping ZenTools improve.</strong><br>Your feedback has been saved on this device. It has not been sent anywhere.";
+    toast("Feedback saved on this device ✓");
+    document.getElementById("feedbackForm").reset();feedbackCharCount.textContent="0 / 1200";
+  }catch(error){toast("Couldn't save feedback in this browser. Check storage settings.");}
+}
+
 render();
 resetTimer();
 </script>
 </body>
 </html>
+
