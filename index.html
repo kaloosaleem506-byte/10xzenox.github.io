@@ -509,6 +509,97 @@ body {
   background: #ff00ff !important;
 }
 
+/* ZENTOOLS RESPONSIVE FIX V1 */
+@media (max-width: 700px) {
+  .nav {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 8px !important;
+    padding: 10px 12px !important;
+  }
+
+  .logo {
+    font-size: clamp(18px, 5vw, 23px) !important;
+    white-space: nowrap !important;
+  }
+
+  .pill {
+    font-size: 11px !important;
+    padding: 6px 9px !important;
+    white-space: nowrap !important;
+  }
+
+  .nav nav {
+    order: 3 !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    justify-content: flex-start !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    gap: 5px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    padding: 4px 0 !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .nav nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav nav a {
+    flex: 0 0 auto !important;
+    font-size: 12px !important;
+    padding: 9px 10px !important;
+    white-space: nowrap !important;
+  }
+
+  main {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 20px 14px 42px !important;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 14px !important;
+  }
+
+  .card,
+  .third,
+  .wide {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .hero h1 {
+    font-size: clamp(32px, 9vw, 46px) !important;
+    line-height: 1.08 !important;
+    overflow-wrap: anywhere;
+  }
+
+  img,
+  canvas,
+  video {
+    max-width: 100%;
+  }
+
+  input,
+  textarea,
+  select {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 701px) {
+  .nav nav {
+    overflow: visible;
+  }
+}
+
 </style>
     
 </head>
