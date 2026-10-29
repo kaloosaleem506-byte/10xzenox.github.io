@@ -1336,7 +1336,13 @@ function startQuiz(){
   const count=Number($("quizCount").value);
   const mode=$("quizMode")?$("quizMode").value:"classic";
   stopQuizTimer();
-  const sourceBank=banks[topic]||[];
+  const rawBank = banks[topic] || [];
+
+const sourceBank = [
+  ...new Map(
+    rawBank.map(q => [q[0].trim().toLowerCase(), q])
+  ).values()
+];
   if(!sourceBank.length){toast("That subject's question pack is coming soon.");return;}
   const poolKey=[board,schoolClass,topic].join("::");
   const seen=getSeenQuestions();
